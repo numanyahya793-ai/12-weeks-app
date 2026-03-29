@@ -54,24 +54,28 @@
     
     <div id="authOverlay" class="fixed inset-0 bg-slate-100 z-50 flex flex-col items-center justify-center">
         <div class="bg-white p-10 rounded-3xl shadow-xl w-full max-w-md border border-slate-200">
-            <h2 class="text-3xl font-bold text-brand-purple mb-2 text-center">12 недель в году</h2>
-            <p class="text-slate-500 text-sm text-center mb-8">Войдите, чтобы синхронизировать прогресс</p>
+            <h2 id="authTitle" class="text-3xl font-bold text-brand-purple mb-2 text-center">Вход</h2>
+            <p id="authSubtitle" class="text-slate-500 text-sm text-center mb-8">Войдите, чтобы синхронизировать прогресс</p>
             
             <div class="space-y-4">
+                <div id="nameFieldGroup" class="hidden">
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Ваше Имя</label>
+                    <input type="text" id="authName" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all" placeholder="Например: Иван Иванов">
+                </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Email</label>
-                    <input type="email" id="authEmail" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none" placeholder="your@email.com">
+                    <input type="email" id="authEmail" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all" placeholder="your@email.com">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Пароль</label>
-                    <input type="password" id="authPassword" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none" placeholder="Минимум 6 символов">
+                    <input type="password" id="authPassword" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all" placeholder="Минимум 6 символов">
                 </div>
                 
                 <p id="authErrorMsg" class="text-rose-500 text-xs font-bold text-center hidden"></p>
                 
-                <div class="pt-2 flex gap-3">
-                    <button id="btnLogin" class="flex-1 bg-brand-purple text-white rounded-xl py-3 text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md">Войти</button>
-                    <button id="btnSignup" class="flex-1 bg-slate-100 text-slate-700 rounded-xl py-3 text-sm font-bold hover:bg-slate-200 border border-slate-200 transition-colors">Регистрация</button>
+                <div class="pt-4 flex flex-col gap-3">
+                    <button id="btnSubmitAuth" class="w-full bg-brand-purple text-white rounded-xl py-3.5 text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md">Войти</button>
+                    <button id="btnToggleAuth" class="w-full text-slate-500 text-xs font-bold hover:text-brand-purple transition-colors mt-2 p-2">Нет аккаунта? Регистрация</button>
                 </div>
             </div>
         </div>
@@ -101,6 +105,11 @@
                 </button>
             </nav>
         </div>
+        <div class="px-4 pb-6 mt-auto border-t border-slate-200/60 pt-4">
+            <button data-target="profile" class="nav-btn w-full flex items-center px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl text-sm font-medium transition-colors">
+                <span class="mr-3 text-lg">👤</span> Профиль
+            </button>
+        </div>
     </aside>
 
     <main class="flex-1 flex flex-col h-full overflow-hidden relative">
@@ -123,10 +132,16 @@
             </div>
 
             <div class="flex items-center gap-4 w-full xl:w-auto justify-end shrink-0">
-                <div id="userProfileBadge" class="hidden flex-col items-end hidden md:flex">
-                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Вы вошли как</span>
-                    <span id="userEmailDisplay" class="text-xs font-bold text-slate-700">--</span>
+                <div id="userProfileBadge" class="hidden items-center gap-3">
+                    <div class="flex flex-col items-end">
+                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Вы вошли как</span>
+                        <span id="userEmailDisplay" class="text-xs font-bold text-slate-700 truncate max-w-[120px] md:max-w-[200px]">--</span>
+                    </div>
+                    <button id="btnLogoutHeader" class="p-2.5 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-all border border-transparent hover:border-rose-100" title="Выйти из аккаунта">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    </button>
                 </div>
+                <div class="w-px h-8 bg-slate-200 hidden xl:block"></div>
                 <button id="globalSaveBtn" class="bg-brand-purple hover:bg-indigo-700 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-md transition-all flex items-center shrink-0 w-full xl:w-auto justify-center">
                     <span class="mr-2 text-lg">💾</span> <span id="globalSaveBtnText">Сохранить прогресс</span>
                 </button>
@@ -414,6 +429,41 @@
                 </div>
             </div>
 
+            <div id="page-profile" class="page-view w-full">
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-white rounded-3xl p-8 md:p-10 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-slate-100 mb-8 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-6 text-4xl opacity-10">👤</div>
+                        <h2 class="text-3xl font-bold text-slate-800 mb-2 relative z-10">Личный профиль</h2>
+                        <p class="text-slate-500 text-sm mb-8 relative z-10">Настройки вашего аккаунта и синхронизации с облаком.</p>
+                        
+                        <div class="space-y-6 relative z-10">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 uppercase mb-2 ml-1">Email аккаунта</label>
+                                <input type="text" id="profileEmail" class="w-full bg-slate-50 rounded-xl p-4 border border-slate-200 text-sm font-medium text-slate-500 cursor-not-allowed" disabled value="--">
+                                <p class="text-[10px] text-slate-400 mt-2 ml-1">Email используется для входа и не может быть изменен.</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-xs font-bold text-brand-purple uppercase mb-2 ml-1">Ваше Имя</label>
+                                <input type="text" id="profileName" class="w-full bg-white rounded-xl p-4 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none text-sm font-bold text-slate-800 shadow-sm transition-all placeholder:text-slate-300" placeholder="Как к вам обращаться?">
+                            </div>
+                            
+                            <button id="btnSaveProfile" class="w-full bg-brand-purple text-white rounded-xl py-4 text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md mt-4 flex items-center justify-center">
+                                <span class="mr-2">💾</span> Сохранить изменения
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-rose-50/50 rounded-3xl p-8 md:p-10 border border-rose-100">
+                        <h3 class="text-xl font-bold text-rose-800 mb-2 flex items-center"><span class="mr-2">⚠️</span> Опасная зона</h3>
+                        <p class="text-sm text-rose-600/80 mb-6">При выходе из аккаунта вы больше не сможете синхронизировать прогресс на этом устройстве до повторного входа.</p>
+                        <button id="btnProfileLogout" class="bg-white text-rose-600 border border-rose-200 rounded-xl px-6 py-3.5 text-sm font-bold hover:bg-rose-50 transition-colors w-full sm:w-auto shadow-sm">
+                            Выйти из аккаунта
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -507,10 +557,14 @@
             
             let currentUser = null;
 
+            // ЭЛЕМЕНТЫ АВТОРИЗАЦИИ
             const authOverlay = document.getElementById('authOverlay');
             const emailInput = document.getElementById('authEmail');
             const passInput = document.getElementById('authPassword');
+            const nameInput = document.getElementById('authName');
             const errorMsg = document.getElementById('authErrorMsg');
+            
+            let authMode = 'login'; // 'login' or 'signup'
 
             const showAuthError = (msg) => {
                 errorMsg.innerText = msg;
@@ -518,39 +572,114 @@
                 setTimeout(() => errorMsg.classList.add('hidden'), 5000);
             };
 
-            document.getElementById('btnSignup').addEventListener('click', async () => {
+            // ПЕРЕКЛЮЧЕНИЕ РЕЖИМОВ ВХОД/РЕГИСТРАЦИЯ
+            document.getElementById('btnToggleAuth').addEventListener('click', () => {
+                authMode = authMode === 'login' ? 'signup' : 'login';
+                document.getElementById('nameFieldGroup').style.display = authMode === 'signup' ? 'block' : 'none';
+                document.getElementById('authTitle').innerText = authMode === 'signup' ? 'Регистрация' : 'Вход';
+                document.getElementById('authSubtitle').innerText = authMode === 'signup' ? 'Создайте аккаунт для облачной синхронизации' : 'Войдите, чтобы синхронизировать прогресс';
+                document.getElementById('btnSubmitAuth').innerText = authMode === 'signup' ? 'Зарегистрироваться' : 'Войти';
+                document.getElementById('btnToggleAuth').innerText = authMode === 'signup' ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Регистрация';
+                errorMsg.classList.add('hidden');
+            });
+
+            // ОБЩАЯ КНОПКА ОТПРАВКИ ФОРМЫ (ЛОГИН ИЛИ РЕГИСТРАЦИЯ)
+            document.getElementById('btnSubmitAuth').addEventListener('click', async () => {
                 const email = emailInput.value.trim();
                 const password = passInput.value;
+                const name = nameInput.value.trim();
+                
                 if (!email || password.length < 6) return showAuthError("Введите email и пароль (мин. 6 символов)");
                 
-                const { data, error } = await supabase.auth.signUp({ email, password });
-                if (error) return showAuthError(error.message);
-                
-                if (data.user && data.user.identities && data.user.identities.length === 0) {
-                    showAuthError("Этот email уже зарегистрирован. Попробуйте войти.");
+                document.getElementById('btnSubmitAuth').innerText = "Загрузка...";
+                document.getElementById('btnSubmitAuth').disabled = true;
+
+                if (authMode === 'signup') {
+                    const { data, error } = await supabase.auth.signUp({ 
+                        email, password,
+                        options: { data: { full_name: name } }
+                    });
+                    
+                    if (error) {
+                        document.getElementById('btnSubmitAuth').innerText = "Зарегистрироваться";
+                        document.getElementById('btnSubmitAuth').disabled = false;
+                        return showAuthError(error.message);
+                    }
+                    
+                    if (data.user && data.user.identities && data.user.identities.length === 0) {
+                        showAuthError("Этот email уже зарегистрирован. Выполните вход.");
+                    } else {
+                        alert("Успешно! Теперь вы можете войти в систему.");
+                        document.getElementById('btnToggleAuth').click(); // Переключаем на вход
+                    }
+                    document.getElementById('btnSubmitAuth').innerText = "Зарегистрироваться";
+                    document.getElementById('btnSubmitAuth').disabled = false;
+                    
                 } else {
-                    alert("Регистрация успешна! Теперь вы можете войти.");
+                    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                    
+                    if (error) {
+                        document.getElementById('btnSubmitAuth').innerText = "Войти";
+                        document.getElementById('btnSubmitAuth').disabled = false;
+                        return showAuthError("Ошибка входа: Неверный логин или пароль");
+                    }
+                    
+                    currentUser = data.user;
+                    authOverlay.style.display = 'none';
+                    updateUserBadge();
+                    await loadFromCloud();
                 }
             });
 
-            document.getElementById('btnLogin').addEventListener('click', async () => {
-                const email = emailInput.value.trim();
-                const password = passInput.value;
-                if (!email || !password) return showAuthError("Введите email и пароль");
+            // ОБНОВЛЕНИЕ ИМЕНИ В ШАПКЕ И ПРОФИЛЕ
+            const updateUserBadge = () => {
+                if (!currentUser) return;
+                const name = currentUser.user_metadata?.full_name || currentUser.email;
+                const badge = document.getElementById('userProfileBadge');
+                badge.classList.remove('hidden');
+                badge.classList.add('flex');
+                document.getElementById('userEmailDisplay').innerText = name;
                 
-                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-                if (error) return showAuthError("Ошибка входа: Неверный логин или пароль");
-                
-                currentUser = data.user;
-                authOverlay.style.display = 'none';
-                
-                console.log("Успешный вход! ID пользователя:", currentUser.id);
-                
-                document.getElementById('userProfileBadge').classList.remove('hidden');
-                document.getElementById('userEmailDisplay').innerText = currentUser.email;
+                // Заполняем данные на странице профиля
+                document.getElementById('profileEmail').value = currentUser.email;
+                document.getElementById('profileName').value = currentUser.user_metadata?.full_name || '';
+            };
 
-                await loadFromCloud(); // Загружаем данные из облака
+            // ЛОГИКА СОХРАНЕНИЯ ПРОФИЛЯ
+            document.getElementById('btnSaveProfile').addEventListener('click', async () => {
+                const newName = document.getElementById('profileName').value.trim();
+                const btn = document.getElementById('btnSaveProfile');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<span class="mr-2">⏳</span> Сохранение...`;
+                
+                const { data, error } = await supabase.auth.updateUser({
+                    data: { full_name: newName }
+                });
+                
+                if (error) {
+                    alert("Ошибка сохранения: " + error.message);
+                    btn.innerHTML = originalText;
+                } else {
+                    currentUser = data.user;
+                    updateUserBadge();
+                    btn.innerHTML = `<span class="mr-2">✓</span> Успешно сохранено!`;
+                    btn.classList.replace('bg-brand-purple', 'bg-emerald-500');
+                    btn.classList.replace('hover:bg-indigo-700', 'hover:bg-emerald-600');
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.replace('bg-emerald-500', 'bg-brand-purple');
+                        btn.classList.replace('hover:bg-emerald-600', 'hover:bg-indigo-700');
+                    }, 2000);
+                }
             });
+
+            // ЛОГИКА ВЫХОДА ИЗ АККАУНТА
+            const handleLogout = async () => {
+                await supabase.auth.signOut();
+                window.location.reload(); // Перезагружаем страницу, чтобы очистить все данные из памяти и показать окно входа
+            };
+            document.getElementById('btnLogoutHeader').addEventListener('click', handleLogout);
+            document.getElementById('btnProfileLogout').addEventListener('click', handleLogout);
 
             const WEEKS_PER_BLOCK = 13;
             const TOTAL_WEEKS = 52;
@@ -644,7 +773,6 @@
                     const week = Math.floor(diffDays / 7) + 1;
                     appData.currentWeek = week > 52 ? 52 : week;
                 }
-                // saveData(); убрали чтобы не спамить в облако при инициализации
             };
             initCurrentWeek();
             
@@ -794,7 +922,7 @@
                 const blkBtn = e.target.closest('.plan-block-btn');
                 if (blkBtn) { activePlanBlock = parseInt(blkBtn.dataset.block); renderPlanTab(); setTimeout(triggerResizeAll, 50); }
                 const dGoalBtn = e.target.closest('.delete-goal-btn');
-                if(dGoalBtn && confirm("Удалить цель и все её practices?")) {
+                if(dGoalBtn && confirm("Удалить цель и все её практики?")) {
                     appData.goals = appData.goals.filter(g => g.id !== dGoalBtn.dataset.id);
                     appData.tasks = appData.tasks.filter(t => t.goalId !== dGoalBtn.dataset.id);
                     forceSave(); renderPlanTab(); renderDashboard(); renderReflectionTab(); setTimeout(triggerResizeAll, 50);
@@ -1301,8 +1429,7 @@
                     authOverlay.style.display = 'none';
                     console.log("Сессия восстановлена. ID:", currentUser.id);
                     
-                    document.getElementById('userProfileBadge').classList.remove('hidden');
-                    document.getElementById('userEmailDisplay').innerText = currentUser.email;
+                    updateUserBadge();
 
                     loadFromCloud(); // Загружаем данные из облака
                 }
