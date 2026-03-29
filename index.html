@@ -12,12 +12,12 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'IBM Plex Sans', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
         .bg-sidebar { background-color: #f4f6fa; }
         .page-view { display: none; }
         .page-view.active { display: block; animation: fadeIn 0.2s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background-color: transparent; }
         .bonus-card { transition: all 0.3s ease; }
@@ -50,32 +50,32 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="flex h-screen overflow-hidden text-slate-800">
+<body class="flex h-screen overflow-hidden text-slate-800 w-full max-w-full">
     
     <div id="authOverlay" class="fixed inset-0 bg-slate-100 z-50 flex flex-col items-center justify-center p-4">
-        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl w-full max-w-md border border-slate-200">
-            <h2 id="authTitle" class="text-3xl font-bold text-brand-purple mb-2 text-center">Вход</h2>
-            <p id="authSubtitle" class="text-slate-500 text-sm text-center mb-8">Войдите, чтобы синхронизировать прогресс</p>
+        <div class="bg-white p-6 sm:p-8 md:p-10 rounded-3xl shadow-xl w-full max-w-md border border-slate-200">
+            <h2 id="authTitle" class="text-2xl sm:text-3xl font-bold text-brand-purple mb-2 text-center">Вход</h2>
+            <p id="authSubtitle" class="text-slate-500 text-xs sm:text-sm text-center mb-6 sm:mb-8">Войдите, чтобы синхронизировать прогресс</p>
             
             <div class="space-y-4">
                 <div id="nameFieldGroup" class="hidden">
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Ваше Имя</label>
+                    <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-1">Ваше Имя</label>
                     <input type="text" id="authName" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all" placeholder="Например: Иван Иванов">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Email</label>
+                    <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-1">Email</label>
                     <input type="email" id="authEmail" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all" placeholder="your@email.com">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Пароль</label>
+                    <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-1">Пароль</label>
                     <input type="password" id="authPassword" class="w-full bg-slate-50 rounded-xl p-3 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all" placeholder="Минимум 6 символов">
                 </div>
                 
                 <p id="authErrorMsg" class="text-rose-500 text-xs font-bold text-center hidden"></p>
                 
-                <div class="pt-4 flex flex-col gap-3">
-                    <button id="btnSubmitAuth" class="w-full bg-brand-purple text-white rounded-xl py-3.5 text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md">Войти</button>
-                    <button id="btnToggleAuth" class="w-full text-slate-500 text-xs font-bold hover:text-brand-purple transition-colors mt-2 p-2">Нет аккаунта? Регистрация</button>
+                <div class="pt-2 sm:pt-4 flex flex-col gap-2 sm:gap-3">
+                    <button id="btnSubmitAuth" class="w-full bg-brand-purple text-white rounded-xl py-3 sm:py-3.5 text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md">Войти</button>
+                    <button id="btnToggleAuth" class="w-full text-slate-500 text-[10px] sm:text-xs font-bold hover:text-brand-purple transition-colors mt-1 sm:mt-2 p-2">Нет аккаунта? Регистрация</button>
                 </div>
             </div>
         </div>
@@ -87,11 +87,11 @@
         <div>
             <div class="p-6">
                 <h1 class="text-xl font-bold text-brand-purple leading-tight tracking-tight">12 недель<br>в году</h1>
-                <p class="text-xs text-slate-500 mt-2 uppercase tracking-widest font-semibold">Годовая система (4 блока)</p>
+                <p class="text-xs text-slate-500 mt-2 uppercase tracking-widest font-semibold">Годовая система</p>
             </div>
             <nav class="px-4 space-y-2">
                 <button data-target="dashboard" class="nav-btn w-full flex items-center px-4 py-3 bg-white text-brand-purple rounded-xl shadow-sm text-sm font-semibold transition-colors">
-                    <span class="mr-3 text-lg">🚀</span> Дашборд недели
+                    <span class="mr-3 text-lg">🚀</span> Дашборд
                 </button>
                 <button data-target="plan" class="nav-btn w-full flex items-center px-4 py-3 text-slate-600 hover:bg-slate-100 rounded-xl text-sm font-medium transition-colors">
                     <span class="mr-3 text-lg">🎯</span> Планы и цели
@@ -114,360 +114,360 @@
         </div>
     </aside>
 
-    <main class="flex-1 flex flex-col h-full overflow-hidden relative">
-        <header class="py-3 flex flex-col xl:flex-row items-start xl:items-center justify-between px-4 lg:px-8 border-b border-slate-200 bg-white/80 backdrop-blur-md shrink-0 sticky top-0 z-20 gap-4 w-full">
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative w-full max-w-full">
+        <header class="py-3 flex flex-col xl:flex-row items-start xl:items-center justify-between px-4 lg:px-8 border-b border-slate-200 bg-white/80 backdrop-blur-md shrink-0 sticky top-0 z-20 gap-3 sm:gap-4 w-full max-w-full">
             
-            <div class="flex items-center justify-between w-full xl:w-auto">
-                <div class="flex flex-col justify-center min-w-max">
-                    <span id="headerTitle" class="text-brand-purple font-bold text-lg leading-none mb-1">Твой прогресс на</span>
-                    <span class="text-[11px] text-slate-500 font-medium uppercase tracking-wider flex items-center mt-1">
-                        <span class="mr-1">📅</span> Сегодня: <span id="todayDateDisplay" class="font-bold text-slate-700 ml-1">--</span>
+            <div class="flex items-center justify-between w-full xl:w-auto min-w-0">
+                <div class="flex flex-col justify-center min-w-0 flex-1 pr-2">
+                    <span id="headerTitle" class="text-brand-purple font-bold text-sm sm:text-lg leading-tight sm:leading-none mb-0.5 sm:mb-1 truncate">Твой прогресс</span>
+                    <span class="text-[9px] sm:text-[11px] text-slate-500 font-medium uppercase tracking-wider flex items-center truncate">
+                        <span class="mr-1">📅</span> <span id="todayDateDisplay" class="font-bold text-slate-700 ml-1 truncate">--</span>
                     </span>
                 </div>
-                <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-brand-purple hover:text-white focus:outline-none transition-colors ml-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-brand-purple hover:text-white focus:outline-none transition-colors shrink-0">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
             </div>
             
             <div class="flex flex-col bg-slate-50 p-2 rounded-xl border border-slate-200 w-full flex-1 xl:mx-6 overflow-x-auto custom-scrollbar" id="headerWeekSelectorBlock">
-                <div class="w-full flex justify-between items-center mb-1.5 px-1 min-w-[300px]">
-                    <span class="font-bold text-brand-purple text-xs uppercase" id="currentBlockLabel">БЛОК 1</span>
-                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider bg-slate-200/70 px-2 py-0.5 rounded text-right">12 нед. фокуса + 1 нед. перерыва</span>
+                <div class="w-full flex justify-between items-center mb-1.5 px-1 min-w-[240px]">
+                    <span class="font-bold text-brand-purple text-[9px] sm:text-xs uppercase" id="currentBlockLabel">БЛОК 1</span>
+                    <span class="text-[7px] sm:text-[9px] font-bold text-slate-400 uppercase tracking-wider bg-slate-200/70 px-1.5 sm:px-2 py-0.5 rounded text-right ml-2 truncate">12 нед. фокуса + 1 отд.</span>
                 </div>
-                <div class="w-full min-w-[300px]">
+                <div class="w-full min-w-[240px]">
                     <div id="weekSelector" class="grid gap-[2px] w-full" style="grid-template-columns: repeat(13, minmax(0, 1fr));"></div>
                 </div>
             </div>
 
-            <div class="flex items-center justify-between xl:justify-end gap-2 sm:gap-4 w-full xl:w-auto shrink-0 mt-2 xl:mt-0">
-                <div id="userProfileBadge" class="hidden items-center gap-2 sm:gap-3">
-                    <div class="flex flex-col items-start sm:items-end">
-                        <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Вы вошли как</span>
-                        <span id="userEmailDisplay" class="text-xs font-bold text-slate-700 truncate max-w-[100px] sm:max-w-[150px] md:max-w-[200px]">--</span>
+            <div class="flex flex-wrap items-center justify-between xl:justify-end gap-2 sm:gap-4 w-full xl:w-auto shrink-0 min-w-0">
+                <div id="userProfileBadge" class="hidden items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                    <div class="flex flex-col items-start xl:items-end min-w-0">
+                        <span class="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-wider">Вы вошли как</span>
+                        <span id="userEmailDisplay" class="text-[10px] sm:text-xs font-bold text-slate-700 truncate w-full max-w-[120px] sm:max-w-[150px]">--</span>
                     </div>
-                    <button id="btnLogoutHeader" class="p-2 sm:p-2.5 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-all border border-transparent hover:border-rose-100" title="Выйти из аккаунта">
-                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    <button id="btnLogoutHeader" class="p-1.5 sm:p-2.5 text-slate-400 hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-all border border-transparent hover:border-rose-100 shrink-0" title="Выйти">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     </button>
                 </div>
-                <div class="w-px h-8 bg-slate-200 hidden xl:block"></div>
-                <button id="globalSaveBtn" class="bg-brand-purple hover:bg-indigo-700 text-white px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all flex items-center shrink-0 justify-center">
-                    <span class="mr-1 sm:mr-2 text-base sm:text-lg">💾</span> <span id="globalSaveBtnText">Сохранить</span>
+                <div class="w-px h-8 bg-slate-200 hidden xl:block shrink-0"></div>
+                <button id="globalSaveBtn" class="bg-brand-purple hover:bg-indigo-700 text-white px-3 sm:px-5 py-2 sm:py-3 rounded-xl text-xs sm:text-sm font-bold shadow-md transition-all flex items-center shrink-0 justify-center flex-1 xl:flex-none min-w-0">
+                    <span class="mr-1 sm:mr-2 text-sm sm:text-lg">💾</span> <span id="globalSaveBtnText" class="truncate">Сохранить</span>
                 </button>
             </div>
         </header>
 
-        <div class="flex-1 overflow-y-auto p-4 lg:p-8 relative custom-scrollbar" id="mainScrollArea">
+        <div class="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 lg:p-8 relative custom-scrollbar w-full" id="mainScrollArea">
             
             <div id="page-dashboard" class="page-view active w-full relative">
                 
-                <div class="sticky top-0 z-30 bg-[#f8fafc] pt-2 pb-4 -mx-4 px-4 lg:-mx-8 lg:px-8 mb-6 border-b border-slate-200/60 shadow-[0_10px_20px_-15px_rgba(0,0,0,0.1)]">
-                    <div class="bg-brand-purple rounded-3xl p-5 shadow-md text-white flex items-center justify-between relative overflow-hidden">
+                <div class="sticky top-0 z-30 bg-[#f8fafc] pt-2 pb-3 sm:pb-4 -mx-3 sm:-mx-4 px-3 sm:px-4 lg:-mx-8 lg:px-8 mb-4 sm:mb-6 border-b border-slate-200/60 shadow-[0_10px_20px_-15px_rgba(0,0,0,0.1)] w-[calc(100%+1.5rem)] sm:w-[calc(100%+2rem)] lg:w-[calc(100%+4rem)]">
+                    <div class="bg-brand-purple rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-md text-white flex flex-col sm:flex-row items-center justify-between relative overflow-hidden gap-3 sm:gap-0">
                         <div class="absolute right-0 top-0 bottom-0 w-1/2 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PC9zdmc+')] opacity-50"></div>
-                        <div class="relative z-10 flex-1">
-                            <p class="text-[10px] md:text-sm font-semibold text-white/70 uppercase tracking-wider mb-1">Исполнение выбранной недели</p>
-                            <div class="flex items-baseline space-x-2 sm:space-x-3">
-                                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold" id="cycleSpeed">0%</h2>
-                                <span class="text-white/80 text-[10px] sm:text-xs bg-white/10 px-2 sm:px-2.5 py-1 rounded-full font-medium whitespace-nowrap">Цель: > 85%</span>
+                        <div class="relative z-10 w-full sm:flex-1 text-center sm:text-left">
+                            <p class="text-[9px] sm:text-[10px] md:text-sm font-semibold text-white/70 uppercase tracking-wider mb-1">Исполнение недели</p>
+                            <div class="flex items-baseline justify-center sm:justify-start space-x-2 sm:space-x-3">
+                                <h2 class="text-4xl sm:text-4xl md:text-5xl font-bold" id="cycleSpeed">0%</h2>
+                                <span class="text-white/80 text-[9px] sm:text-[10px] bg-white/10 px-2 py-1 rounded-full font-medium whitespace-nowrap">Цель: > 85%</span>
                             </div>
                         </div>
-                        <div class="relative z-10 w-1/2 pl-2 sm:pl-4 md:pl-8">
-                            <div class="h-2 sm:h-2.5 w-full bg-white/20 rounded-full overflow-hidden shadow-inner">
+                        <div class="relative z-10 w-full sm:w-1/2 sm:pl-4 md:pl-8">
+                            <div class="h-1.5 sm:h-2 w-full bg-white/20 rounded-full overflow-hidden shadow-inner">
                                 <div id="cycleProgressBar" class="h-full bg-white transition-all duration-700 ease-out" style="width: 0%"></div>
                             </div>
-                            <p class="text-[9px] sm:text-[10px] md:text-xs text-white/70 mt-2 text-right font-medium" id="scoreDetails">0 / 0 очков</p>
+                            <p class="text-[9px] sm:text-[10px] text-white/70 mt-1.5 sm:mt-2 text-center sm:text-right font-medium" id="scoreDetails">0 / 0 очков</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gradient-to-r from-indigo-50 to-purple-50/50 rounded-3xl p-5 sm:p-6 md:p-8 shadow-sm border border-indigo-100/50 mb-6 sm:mb-8 text-center">
-                    <span class="text-xs sm:text-sm font-bold text-rose-600 uppercase tracking-widest mb-2 sm:mb-3 block">Ваша Миссия</span>
-                    <p class="text-lg sm:text-xl md:text-2xl font-medium text-slate-800 italic mb-4 sm:mb-6" id="dashMissionText">Сформулируйте свою миссию во вкладке «Личное видение».</p>
-                    <span class="text-[10px] sm:text-xs font-bold text-brand-purple uppercase tracking-widest mb-2 block border-t border-indigo-100 pt-4 sm:pt-5">Ваш фокус на 12 недель (Квартал)</span>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium italic" id="dashVisionText">Сформулируйте видение на 12 недель во вкладке «Личное видение».</p>
+                <div class="bg-gradient-to-r from-indigo-50 to-purple-50/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm border border-indigo-100/50 mb-5 sm:mb-8 text-center">
+                    <span class="text-[10px] sm:text-sm font-bold text-rose-600 uppercase tracking-widest mb-2 block">Ваша Миссия</span>
+                    <p class="text-base sm:text-xl md:text-2xl font-medium text-slate-800 italic mb-4 sm:mb-6 break-words" id="dashMissionText">Сформулируйте свою миссию во вкладке «Личное видение».</p>
+                    <span class="text-[9px] sm:text-xs font-bold text-brand-purple uppercase tracking-widest mb-1.5 sm:mb-2 block border-t border-indigo-100 pt-3 sm:pt-5">Фокус на 12 недель</span>
+                    <p class="text-[11px] sm:text-sm text-slate-600 leading-relaxed font-medium italic break-words" id="dashVisionText">Сформулируйте видение на 12 недель во вкладке «Личное видение».</p>
                 </div>
 
-                <div class="bg-white rounded-3xl p-5 sm:p-6 md:p-8 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-slate-100 mb-6 sm:mb-8 overflow-hidden">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-4 sm:mb-6">
-                        <div>
-                            <div class="flex flex-wrap items-center mb-2 gap-2">
-                                <span class="text-xs font-bold text-brand-purple uppercase tracking-wider" id="dashBlockTitle">Фокус Блока 1 (Квартал)</span>
-                                <span class="text-[10px] bg-brand-purple/10 text-brand-purple font-bold px-2 py-1 rounded" id="dashBlockDates">--</span>
+                <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-slate-100 mb-5 sm:mb-8 overflow-hidden w-full">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-3 sm:mb-6 w-full">
+                        <div class="min-w-0 flex-1 w-full">
+                            <div class="flex flex-wrap items-center mb-1.5 sm:mb-2 gap-1.5 sm:gap-2">
+                                <span class="text-[10px] sm:text-xs font-bold text-brand-purple uppercase tracking-wider truncate" id="dashBlockTitle">Фокус Блока 1</span>
+                                <span class="text-[8px] sm:text-[10px] bg-brand-purple/10 text-brand-purple font-bold px-1.5 sm:px-2 py-0.5 sm:py-1 rounded whitespace-nowrap" id="dashBlockDates">--</span>
                             </div>
-                            <h2 class="text-2xl sm:text-3xl font-bold text-slate-800" id="dashWeekTitle">Неделя 1</h2>
-                            <p class="text-xs sm:text-sm text-slate-500 mt-1" id="dashWeekDates">--</p>
+                            <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800" id="dashWeekTitle">Неделя 1</h2>
+                            <p class="text-[10px] sm:text-sm text-slate-500 mt-0.5 sm:mt-1" id="dashWeekDates">--</p>
                         </div>
-                        <div class="mt-4 sm:mt-0 text-left sm:text-right w-full sm:w-auto border-t sm:border-t-0 border-slate-100 pt-4 sm:pt-0">
-                            <span class="text-xs sm:text-sm font-bold text-slate-700 capitalize tracking-wide" id="calendarMonthName">--</span>
+                        <div class="mt-2 sm:mt-0 text-left sm:text-right w-full sm:w-auto border-t sm:border-t-0 border-slate-100 pt-2 sm:pt-0 shrink-0">
+                            <span class="text-[10px] sm:text-sm font-bold text-slate-700 capitalize tracking-wide" id="calendarMonthName">--</span>
                         </div>
                     </div>
-                    <div class="w-full overflow-x-auto pb-2 -mx-2 px-2 sm:mx-0 sm:px-0 custom-scrollbar">
-                        <div class="flex w-full gap-[2px] sm:gap-1 min-w-[320px]" id="monthCalendarStrip"></div>
+                    <div class="w-full overflow-x-auto pb-1 sm:pb-2 -mx-1 px-1 sm:mx-0 sm:px-0 custom-scrollbar">
+                        <div class="flex w-full gap-[2px] sm:gap-1 min-w-[260px] sm:min-w-[320px]" id="monthCalendarStrip"></div>
                     </div>
                 </div>
 
-                <div id="dashboardGoalsContainer" class="space-y-6 mb-8"></div>
-                <div id="dashboardBlocksContainer" class="bg-white rounded-3xl p-5 sm:p-6 md:p-8 shadow-sm border border-slate-100 mt-8 sm:mt-12 mb-8"></div>
+                <div id="dashboardGoalsContainer" class="space-y-4 sm:space-y-6 mb-8 w-full"></div>
+                <div id="dashboardBlocksContainer" class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm border border-slate-100 mt-6 sm:mt-12 mb-6 sm:mb-8 w-full"></div>
             </div>
 
             <div id="page-plan" class="page-view w-full">
-                <div class="bg-indigo-50/50 p-5 sm:p-6 rounded-3xl border border-indigo-100 mb-6 sm:mb-8 flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6 shadow-sm">
-                    <div>
-                        <h2 class="text-lg font-bold text-slate-800 mb-1">Годовой Календарь</h2>
-                        <p class="text-xs text-slate-500">Выберите понедельник для старта</p>
+                <div class="bg-indigo-50/50 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-indigo-100 mb-5 sm:mb-8 flex flex-col md:flex-row items-start md:items-center gap-3 sm:gap-6 shadow-sm w-full">
+                    <div class="w-full md:w-auto">
+                        <h2 class="text-base sm:text-lg font-bold text-slate-800 mb-0.5 sm:mb-1">Годовой Календарь</h2>
+                        <p class="text-[10px] sm:text-xs text-slate-500">Выберите понедельник для старта</p>
                     </div>
-                    <div class="bg-white p-2 rounded-xl border border-indigo-200 shadow-sm w-full md:w-auto">
-                        <input type="date" id="startDateInput" class="bg-transparent border-none text-sm outline-none font-bold text-brand-purple cursor-pointer w-full">
+                    <div class="bg-white p-1.5 sm:p-2 rounded-xl border border-indigo-200 shadow-sm w-full md:w-auto">
+                        <input type="date" id="startDateInput" class="bg-transparent border-none text-xs sm:text-sm outline-none font-bold text-brand-purple cursor-pointer w-full">
                     </div>
-                    <div class="text-xs sm:text-sm font-medium text-slate-600 bg-white px-4 py-3 rounded-xl border border-indigo-200 shadow-sm flex-1 flex flex-col sm:flex-row gap-2 sm:gap-4 justify-between w-full">
+                    <div class="text-[10px] sm:text-sm font-medium text-slate-600 bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-xl border border-indigo-200 shadow-sm flex-1 flex flex-col sm:flex-row gap-1 sm:gap-4 justify-between w-full">
                         <span>Начало: <span id="displayStartDate" class="font-bold text-slate-800">--</span></span>
-                        <span>Финиш (52 нед): <span id="displayEndDate" class="font-bold text-emerald-600">--</span></span>
+                        <span>Финиш: <span id="displayEndDate" class="font-bold text-emerald-600">--</span></span>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
-                    <div class="col-span-1 lg:col-span-5 space-y-6">
-                        <div class="flex gap-1 bg-slate-100 p-1.5 rounded-xl w-full border border-slate-200 shadow-sm overflow-x-auto custom-scrollbar pb-1 sm:pb-1.5">
-                            <button class="plan-block-btn flex-1 py-2 px-2 sm:px-1 rounded-lg text-[10px] xl:text-xs font-bold bg-white text-brand-purple shadow-sm transition-all whitespace-nowrap min-w-[100px] sm:min-w-0" data-block="1">Блок 1 (нед. 1-13)</button>
-                            <button class="plan-block-btn flex-1 py-2 px-2 sm:px-1 rounded-lg text-[10px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[100px] sm:min-w-0" data-block="2">Блок 2 (нед. 14-26)</button>
-                            <button class="plan-block-btn flex-1 py-2 px-2 sm:px-1 rounded-lg text-[10px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[100px] sm:min-w-0" data-block="3">Блок 3 (нед. 27-39)</button>
-                            <button class="plan-block-btn flex-1 py-2 px-2 sm:px-1 rounded-lg text-[10px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[100px] sm:min-w-0" data-block="4">Блок 4 (нед. 40-52)</button>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 w-full">
+                    <div class="col-span-1 lg:col-span-5 space-y-4 sm:space-y-6 w-full min-w-0">
+                        <div class="flex gap-1 bg-slate-100 p-1 sm:p-1.5 rounded-xl w-full border border-slate-200 shadow-sm overflow-x-auto custom-scrollbar pb-1.5">
+                            <button class="plan-block-btn flex-1 py-1.5 sm:py-2 px-2 sm:px-1 rounded-lg text-[9px] xl:text-xs font-bold bg-white text-brand-purple shadow-sm transition-all whitespace-nowrap min-w-[80px] sm:min-w-0" data-block="1">Блок 1 (1-13)</button>
+                            <button class="plan-block-btn flex-1 py-1.5 sm:py-2 px-2 sm:px-1 rounded-lg text-[9px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[80px] sm:min-w-0" data-block="2">Блок 2 (14-26)</button>
+                            <button class="plan-block-btn flex-1 py-1.5 sm:py-2 px-2 sm:px-1 rounded-lg text-[9px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[80px] sm:min-w-0" data-block="3">Блок 3 (27-39)</button>
+                            <button class="plan-block-btn flex-1 py-1.5 sm:py-2 px-2 sm:px-1 rounded-lg text-[9px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[80px] sm:min-w-0" data-block="4">Блок 4 (40-52)</button>
                         </div>
 
-                        <div class="bg-white rounded-3xl p-5 sm:p-6 md:p-8 shadow-sm border border-slate-100">
-                            <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mb-2">Цели блока</h2>
-                            <p class="text-xs text-slate-500 mb-4 sm:mb-6">Вы можете <b class="text-brand-purple">редактировать</b> текст прямо в карточке.</p>
+                        <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm border border-slate-100 w-full min-w-0">
+                            <h2 class="text-lg sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2">Цели блока</h2>
+                            <p class="text-[10px] sm:text-xs text-slate-500 mb-4 sm:mb-6">Вы можете <b class="text-brand-purple">редактировать</b> текст прямо в карточке.</p>
                             
-                            <div class="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 mb-6">
-                                <div class="flex justify-between items-center mb-3">
-                                    <label class="block text-[10px] sm:text-xs font-bold text-brand-purple uppercase">Добавить цель</label>
-                                    <span class="text-[9px] sm:text-[10px] font-bold text-slate-500 bg-white px-2 py-1 rounded border border-slate-200" id="planCurrentBlockLabel">Блок 1</span>
+                            <div class="bg-slate-50 p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-slate-200 mb-4 sm:mb-6 w-full">
+                                <div class="flex justify-between items-center mb-2 sm:mb-3">
+                                    <label class="block text-[9px] sm:text-xs font-bold text-brand-purple uppercase">Добавить цель</label>
+                                    <span class="text-[8px] sm:text-[10px] font-bold text-slate-500 bg-white px-1.5 sm:px-2 py-0.5 sm:py-1 rounded border border-slate-200" id="planCurrentBlockLabel">Блок 1</span>
                                 </div>
-                                <textarea id="newGoalTitle" placeholder="Например: Запустить продажи нового продукта" class="auto-resize w-full bg-white rounded-lg p-3 sm:p-4 border border-slate-200 text-sm outline-none mb-3 min-h-[4rem] focus:ring-2 focus:ring-brand-purple/50 transition-all"></textarea>
-                                <button id="addGoalBtn" class="w-full bg-slate-900 text-white rounded-xl py-3 text-xs sm:text-sm font-bold hover:bg-slate-800 transition-colors">+ Создать цель</button>
+                                <textarea id="newGoalTitle" placeholder="Например: Запустить продажи нового продукта" class="auto-resize w-full bg-white rounded-lg p-2.5 sm:p-4 border border-slate-200 text-xs sm:text-sm outline-none mb-2 sm:mb-3 min-h-[3rem] sm:min-h-[4rem] focus:ring-2 focus:ring-brand-purple/50 transition-all break-words"></textarea>
+                                <button id="addGoalBtn" class="w-full bg-slate-900 text-white rounded-lg sm:rounded-xl py-2.5 sm:py-3 text-xs sm:text-sm font-bold hover:bg-slate-800 transition-colors">+ Создать цель</button>
                             </div>
-                            <div id="goalsList" class="space-y-4 max-h-[400px] sm:max-h-[500px] overflow-y-auto custom-scrollbar pr-2"></div>
+                            <div id="goalsList" class="space-y-3 sm:space-y-4 max-h-[300px] sm:max-h-[500px] overflow-y-auto custom-scrollbar pr-1 sm:pr-2 w-full"></div>
                         </div>
                     </div>
 
-                    <div class="col-span-1 lg:col-span-7 space-y-6">
-                        <div class="bg-white rounded-3xl p-5 sm:p-6 md:p-8 shadow-sm border border-slate-100">
-                            <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mb-2">Практики и Тактики</h2>
-                            <p class="text-xs text-slate-500 mb-4 sm:mb-6">Привяжите действия к целям <span class="font-bold text-brand-purple" id="taskSubBlockLabel">Блока 1</span>.</p>
+                    <div class="col-span-1 lg:col-span-7 space-y-4 sm:space-y-6 w-full min-w-0">
+                        <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-sm border border-slate-100 w-full min-w-0">
+                            <h2 class="text-lg sm:text-2xl font-bold text-slate-800 mb-1 sm:mb-2">Практики и Тактики</h2>
+                            <p class="text-[10px] sm:text-xs text-slate-500 mb-4 sm:mb-6">Привяжите действия к целям <span class="font-bold text-brand-purple" id="taskSubBlockLabel">Блока 1</span>.</p>
 
-                            <div class="bg-indigo-50/50 p-4 sm:p-6 rounded-2xl border border-indigo-100 mb-6 sm:mb-8">
-                                <div class="mb-4">
-                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-2">1. Выберите цель</label>
-                                    <select id="taskGoalSelect" class="w-full bg-white rounded-xl p-3 border border-indigo-200 text-xs sm:text-sm outline-none font-medium text-brand-purple cursor-pointer shadow-sm focus:ring-2 focus:ring-brand-purple/50"></select>
+                            <div class="bg-indigo-50/50 p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-indigo-100 mb-5 sm:mb-8 w-full">
+                                <div class="mb-3 sm:mb-4 w-full">
+                                    <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase mb-1.5 sm:mb-2">1. Выберите цель</label>
+                                    <select id="taskGoalSelect" class="w-full bg-white rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-indigo-200 text-xs sm:text-sm outline-none font-medium text-brand-purple cursor-pointer shadow-sm focus:ring-2 focus:ring-brand-purple/50 truncate"></select>
                                 </div>
-                                <div class="mb-4">
-                                    <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-2">2. Название практики</label>
-                                    <input type="text" id="newTaskTitle" placeholder="Что нужно сделать?" class="w-full bg-white rounded-xl p-3 border border-indigo-200 text-xs sm:text-sm outline-none shadow-sm focus:ring-2 focus:ring-brand-purple/50">
+                                <div class="mb-3 sm:mb-4 w-full">
+                                    <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase mb-1.5 sm:mb-2">2. Название практики</label>
+                                    <input type="text" id="newTaskTitle" placeholder="Что нужно сделать?" class="w-full bg-white rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-indigo-200 text-xs sm:text-sm outline-none shadow-sm focus:ring-2 focus:ring-brand-purple/50">
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 mb-4 sm:mb-6 w-full">
                                     <div>
-                                        <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-2">Тип</label>
-                                        <select id="newTaskType" class="w-full bg-white rounded-xl p-3 border border-indigo-200 text-xs sm:text-sm outline-none cursor-pointer shadow-sm focus:ring-2 focus:ring-brand-purple/50">
+                                        <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase mb-1.5 sm:mb-2">Тип</label>
+                                        <select id="newTaskType" class="w-full bg-white rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-indigo-200 text-xs sm:text-sm outline-none cursor-pointer shadow-sm focus:ring-2 focus:ring-brand-purple/50">
                                             <option value="daily">☀️ Ежедневная</option>
                                             <option value="weekly">🎯 Еженедельная</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-2">Неделя</label>
-                                        <select id="newTaskWeek" class="w-full bg-white rounded-xl p-3 border border-indigo-200 text-xs sm:text-sm outline-none cursor-pointer shadow-sm disabled:opacity-50 focus:ring-2 focus:ring-brand-purple/50"></select>
+                                        <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase mb-1.5 sm:mb-2">Неделя</label>
+                                        <select id="newTaskWeek" class="w-full bg-white rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-indigo-200 text-xs sm:text-sm outline-none cursor-pointer shadow-sm disabled:opacity-50 focus:ring-2 focus:ring-brand-purple/50 truncate"></select>
                                     </div>
                                     <div>
-                                        <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-2">Приоритет</label>
-                                        <select id="newTaskPriority" class="w-full bg-white rounded-xl p-3 border border-indigo-200 text-xs sm:text-sm outline-none cursor-pointer shadow-sm focus:ring-2 focus:ring-brand-purple/50">
+                                        <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase mb-1.5 sm:mb-2">Приоритет</label>
+                                        <select id="newTaskPriority" class="w-full bg-white rounded-lg sm:rounded-xl p-2.5 sm:p-3 border border-indigo-200 text-xs sm:text-sm outline-none cursor-pointer shadow-sm focus:ring-2 focus:ring-brand-purple/50">
                                             <option value="high" class="font-bold text-rose-600">🔴 Высокий</option>
                                             <option value="medium" class="font-bold text-amber-600" selected>🟡 Средний</option>
                                             <option value="low" class="font-bold text-slate-500">⚪ Низкий</option>
                                         </select>
                                     </div>
                                 </div>
-                                <button id="addTaskBtn" class="w-full bg-brand-purple text-white rounded-xl py-3 text-xs sm:text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed">+ Добавить практику</button>
+                                <button id="addTaskBtn" class="w-full bg-brand-purple text-white rounded-lg sm:rounded-xl py-2.5 sm:py-3 text-xs sm:text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed">+ Добавить</button>
                             </div>
-                            <h3 class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider mb-4 border-b border-slate-100 pb-2" id="tasksListHeaderLabel">Практики Блока 1</h3>
-                            <div id="tasksPreviewList" class="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-2"></div>
+                            <h3 class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider mb-3 sm:mb-4 border-b border-slate-100 pb-2" id="tasksListHeaderLabel">Практики Блока 1</h3>
+                            <div id="tasksPreviewList" class="space-y-2 sm:space-y-3 max-h-[250px] sm:max-h-[300px] overflow-y-auto custom-scrollbar pr-1 sm:pr-2 w-full"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="page-rewards" class="page-view w-full">
-                <div class="bg-white rounded-3xl p-5 sm:p-6 md:p-10 shadow-sm border border-slate-100 mb-8">
-                    <div class="flex flex-col lg:flex-row justify-between items-start mb-6 sm:mb-8 border-b border-slate-100 pb-4 sm:pb-6 gap-4">
-                        <div>
-                            <h2 class="text-2xl sm:text-3xl font-bold text-slate-800">Система поощрений</h2>
-                            <p class="text-xs sm:text-sm text-slate-500 mt-2">Назначьте себе награды и загрузите фото для каждого из 4-х блоков.</p>
+                <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 shadow-sm border border-slate-100 mb-6 sm:mb-8 w-full min-w-0">
+                    <div class="flex flex-col lg:flex-row justify-between items-start mb-4 sm:mb-8 border-b border-slate-100 pb-4 sm:pb-6 gap-3 sm:gap-4 w-full">
+                        <div class="w-full min-w-0">
+                            <h2 class="text-xl sm:text-3xl font-bold text-slate-800">Система поощрений</h2>
+                            <p class="text-[10px] sm:text-sm text-slate-500 mt-1 sm:mt-2">Назначьте себе награды для каждого блока.</p>
                         </div>
-                        <div class="bg-slate-50 p-1.5 sm:p-2 rounded-xl border border-slate-200 flex flex-wrap gap-1 sm:gap-2 w-full lg:w-auto">
-                            <button class="reward-block-btn flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-brand-purple text-white shadow-sm" data-block="1">Блок 1</button>
-                            <button class="reward-block-btn flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors" data-block="2">Блок 2</button>
-                            <button class="reward-block-btn flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors" data-block="3">Блок 3</button>
-                            <button class="reward-block-btn flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors" data-block="4">Блок 4</button>
+                        <div class="bg-slate-50 p-1 sm:p-2 rounded-lg sm:rounded-xl border border-slate-200 flex flex-wrap gap-1 w-full lg:w-auto justify-between">
+                            <button class="reward-block-btn flex-1 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-[9px] sm:text-sm font-bold bg-brand-purple text-white shadow-sm" data-block="1">Блок 1</button>
+                            <button class="reward-block-btn flex-1 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-[9px] sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors" data-block="2">Блок 2</button>
+                            <button class="reward-block-btn flex-1 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-[9px] sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors" data-block="3">Блок 3</button>
+                            <button class="reward-block-btn flex-1 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-[9px] sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors" data-block="4">Блок 4</button>
                         </div>
                     </div>
 
-                    <div class="bg-slate-900 rounded-2xl p-5 sm:p-6 text-white mb-8 sm:mb-10 flex flex-col md:flex-row items-start md:items-center justify-between shadow-lg relative overflow-hidden gap-4">
-                        <div class="relative z-10">
-                            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1" id="rewardFactSubtitle">Факт выполнения: Блок 1</p>
-                            <div class="flex items-end gap-3 sm:gap-4">
-                                <h3 class="text-4xl sm:text-5xl font-bold text-emerald-400" id="rewardFactPct">0%</h3>
-                                <p class="text-xs sm:text-sm text-slate-300 pb-1" id="rewardFactScore">0 / 0 очков собрано</p>
+                    <div class="bg-slate-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 text-white mb-6 sm:mb-10 flex flex-col md:flex-row items-start md:items-center justify-between shadow-lg relative overflow-hidden gap-3 sm:gap-4 w-full">
+                        <div class="relative z-10 w-full min-w-0">
+                            <p class="text-[9px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1" id="rewardFactSubtitle">Факт: Блок 1</p>
+                            <div class="flex items-end gap-2 sm:gap-4 flex-wrap">
+                                <h3 class="text-3xl sm:text-5xl font-bold text-emerald-400" id="rewardFactPct">0%</h3>
+                                <p class="text-[10px] sm:text-sm text-slate-300 pb-0.5 sm:pb-1 truncate" id="rewardFactScore">0 / 0 очков</p>
                             </div>
                         </div>
                         <div class="relative z-10 md:text-right w-full md:w-auto">
-                            <p class="text-xs sm:text-sm text-slate-300 mb-2 hidden md:block">Статус вознаграждения:</p>
-                            <div id="rewardStatusBadge" class="inline-block w-full md:w-auto text-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-slate-800 text-slate-400 border border-slate-700">Пока не достигнуто</div>
+                            <p class="text-[10px] sm:text-sm text-slate-300 mb-1.5 sm:mb-2 hidden md:block">Статус:</p>
+                            <div id="rewardStatusBadge" class="inline-block w-full md:w-auto text-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-sm font-bold bg-slate-800 text-slate-400 border border-slate-700 truncate">Пока не достигнуто</div>
                         </div>
                         <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-emerald-900/40 to-transparent hidden md:block"></div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="rewardsCardsContainer"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 w-full" id="rewardsCardsContainer"></div>
                 </div>
             </div>
 
             <div id="page-reflection" class="page-view w-full">
-                <div class="bg-white rounded-3xl p-5 sm:p-6 md:p-10 shadow-sm border border-slate-100 mb-8">
-                    <div class="flex flex-col lg:flex-row justify-between items-start mb-8 sm:mb-10 border-b border-slate-100 pb-6 sm:pb-8 gap-4">
-                        <div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="text-[10px] font-bold bg-brand-purple/10 text-brand-purple px-2 py-1 rounded uppercase tracking-wider" id="reflectBlockLabel">Блок 1</span>
-                                <span class="text-[10px] text-slate-400 font-medium" id="reflectWeekDates">--</span>
+                <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-10 shadow-sm border border-slate-100 mb-6 sm:mb-8 w-full min-w-0">
+                    <div class="flex flex-col lg:flex-row justify-between items-start mb-5 sm:mb-10 border-b border-slate-100 pb-4 sm:pb-8 gap-3 sm:gap-4 w-full">
+                        <div class="w-full min-w-0">
+                            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                                <span class="text-[9px] sm:text-[10px] font-bold bg-brand-purple/10 text-brand-purple px-1.5 sm:px-2 py-0.5 sm:py-1 rounded uppercase tracking-wider" id="reflectBlockLabel">Блок 1</span>
+                                <span class="text-[9px] sm:text-[10px] text-slate-400 font-medium" id="reflectWeekDates">--</span>
                             </div>
-                            <h2 class="text-2xl sm:text-3xl font-bold text-slate-800" id="reflectWeekTitle">Еженедельная рефлексия</h2>
-                            <p class="text-xs sm:text-sm text-slate-500 mt-2">Оцените результаты, проанализируйте срывы и запланируйте улучшения на будущее.</p>
+                            <h2 class="text-xl sm:text-3xl font-bold text-slate-800 truncate" id="reflectWeekTitle">Рефлексия недели</h2>
+                            <p class="text-[10px] sm:text-sm text-slate-500 mt-1 sm:mt-2">Оцените результаты и проанализируйте срывы.</p>
                         </div>
-                        <span class="text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-rose-500 font-bold bg-rose-50 border border-rose-100 shrink-0 w-full lg:w-auto text-center">Выполняем до воскресенья</span>
+                        <span class="text-[10px] sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-rose-500 font-bold bg-rose-50 border border-rose-100 shrink-0 w-full lg:w-auto text-center truncate">Выполняем до воскресенья</span>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10">
-                        <div class="col-span-1 lg:col-span-8 space-y-6 sm:space-y-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 w-full">
+                        <div class="col-span-1 lg:col-span-8 space-y-5 sm:space-y-8 w-full min-w-0">
                             <div>
-                                <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 sm:mb-3">1. Что прошло хорошо (достижения, победы, успехи)</label>
-                                <textarea id="inputWentWell" class="auto-resize w-full bg-slate-50 rounded-2xl p-4 sm:p-6 border border-slate-200 min-h-[6rem] sm:min-h-[8rem] text-sm focus:bg-white focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all placeholder:text-slate-400" placeholder="Запишите свои достижения и успехи на этой неделе..."></textarea>
+                                <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 sm:mb-3">1. Что прошло хорошо (успехи)</label>
+                                <textarea id="inputWentWell" class="auto-resize w-full bg-slate-50 rounded-xl sm:rounded-2xl p-3 sm:p-6 border border-slate-200 min-h-[5rem] sm:min-h-[8rem] text-xs sm:text-sm focus:bg-white focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all placeholder:text-slate-400 break-words" placeholder="Запишите свои достижения..."></textarea>
                             </div>
                             <div>
-                                <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 sm:mb-3">2. Срывы и препятствия (трудности, проблемы, что мешало)</label>
-                                <textarea id="inputToImprove" class="auto-resize w-full bg-slate-50 rounded-2xl p-4 sm:p-6 border border-slate-200 min-h-[6rem] sm:min-h-[8rem] text-sm focus:bg-white focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all placeholder:text-slate-400" placeholder="Запишите трудности, проблемы и как их избежать в будущем..."></textarea>
+                                <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mb-2 sm:mb-3">2. Срывы и препятствия (проблемы)</label>
+                                <textarea id="inputToImprove" class="auto-resize w-full bg-slate-50 rounded-xl sm:rounded-2xl p-3 sm:p-6 border border-slate-200 min-h-[5rem] sm:min-h-[8rem] text-xs sm:text-sm focus:bg-white focus:ring-2 focus:ring-brand-purple/50 outline-none transition-all placeholder:text-slate-400 break-words" placeholder="Запишите трудности..."></textarea>
                             </div>
                         </div>
 
-                        <div class="col-span-1 lg:col-span-4 space-y-6">
-                            <div class="border border-slate-100 rounded-3xl p-6 sm:p-8 bg-slate-50/50 flex flex-col items-center text-center">
-                                <p class="text-xs sm:text-sm text-slate-500 mb-2 font-medium">Общая оценка недели</p>
-                                <h3 class="text-5xl sm:text-6xl font-bold text-brand-purple mb-4" id="reflectWeekScorePrc">0%</h3>
-                                <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden mb-6"><div id="reflectWeekScoreBar" class="h-full bg-brand-purple" style="width: 0%"></div></div>
+                        <div class="col-span-1 lg:col-span-4 space-y-5 sm:space-y-6 w-full min-w-0">
+                            <div class="border border-slate-100 rounded-2xl sm:rounded-3xl p-5 sm:p-8 bg-slate-50/50 flex flex-col items-center text-center w-full">
+                                <p class="text-[10px] sm:text-sm text-slate-500 mb-1.5 sm:mb-2 font-medium">Общая оценка недели</p>
+                                <h3 class="text-4xl sm:text-6xl font-bold text-brand-purple mb-3 sm:mb-4" id="reflectWeekScorePrc">0%</h3>
+                                <div class="w-full h-1 sm:h-1.5 bg-slate-200 rounded-full overflow-hidden mb-4 sm:mb-6 max-w-[200px] sm:max-w-none"><div id="reflectWeekScoreBar" class="h-full bg-brand-purple" style="width: 0%"></div></div>
                                 
-                                <label class="block text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-4">Рейтинг (Ощущения)</label>
-                                <div class="flex gap-2 sm:gap-3 justify-between w-full max-w-[250px]" id="ratingContainer"></div>
+                                <label class="block text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3 sm:mb-4">Рейтинг (Ощущения)</label>
+                                <div class="flex gap-1.5 sm:gap-3 justify-between w-full max-w-[200px] sm:max-w-[250px]" id="ratingContainer"></div>
                             </div>
                             
-                            <div class="border border-slate-100 rounded-3xl p-5 sm:p-6 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-                                <h4 class="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mb-4 flex items-center"><span class="text-lg mr-2">📊</span> Динамика квартала</h4>
-                                <div class="space-y-2 max-h-48 sm:max-h-64 overflow-y-auto custom-scrollbar pr-2" id="reflectionBlockDynamicsList"></div>
+                            <div class="border border-slate-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)] w-full">
+                                <h4 class="text-[9px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mb-3 sm:mb-4 flex items-center"><span class="text-base sm:text-lg mr-2">📊</span> Динамика</h4>
+                                <div class="space-y-1.5 sm:space-y-2 max-h-40 sm:max-h-64 overflow-y-auto custom-scrollbar pr-1 sm:pr-2 w-full" id="reflectionBlockDynamicsList"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-8 sm:mt-12 pt-8 sm:pt-10 border-t border-slate-100 relative overflow-hidden rounded-3xl">
+                    <div class="mt-6 sm:mt-12 pt-6 sm:pt-10 border-t border-slate-100 relative overflow-hidden rounded-2xl sm:rounded-3xl w-full">
                         <div class="absolute inset-0 bg-slate-50/50 opacity-40"></div>
-                        <div class="relative z-10">
-                            <h3 class="text-lg sm:text-xl font-bold text-slate-800 mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3"><span class="text-xl sm:text-2xl">✓</span> Контекст: Задачи недели</h3>
-                            <div id="reflectionWeekTaskList" class="space-y-3"></div>
+                        <div class="relative z-10 w-full min-w-0">
+                            <h3 class="text-base sm:text-xl font-bold text-slate-800 mb-3 sm:mb-6 flex items-center gap-1.5 sm:gap-3 truncate"><span class="text-lg sm:text-2xl">✓</span> Задачи этой недели</h3>
+                            <div id="reflectionWeekTaskList" class="space-y-2 sm:space-y-3 w-full"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div id="page-vision" class="page-view w-full">
-                <div class="max-w-[1400px] mx-auto pb-10 space-y-6 sm:space-y-8">
-                    <div class="mb-4">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">Личное видение</h2>
-                        <p class="text-xs sm:text-sm text-slate-500 mb-4 sm:mb-6">Ваше видение — это эмоциональный якорь. Заполните миссию и добавьте вдохновляющие фото в группы.</p>
+                <div class="max-w-[1400px] mx-auto pb-6 sm:pb-10 space-y-5 sm:space-y-8 w-full min-w-0">
+                    <div class="mb-4 w-full min-w-0">
+                        <h2 class="text-xl sm:text-3xl font-bold text-slate-800 mb-1.5 sm:mb-2">Личное видение</h2>
+                        <p class="text-[10px] sm:text-sm text-slate-500 mb-4 sm:mb-6">Заполните миссию и добавьте вдохновляющие фото в группы.</p>
                         
-                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50/50 rounded-3xl p-5 sm:p-8 border border-indigo-100/50 text-center relative overflow-hidden h-max shadow-sm">
-                           <div class="absolute top-0 right-0 p-4 sm:p-6 text-3xl sm:text-4xl opacity-10">✨</div>
-                           <label class="block text-[10px] sm:text-xs font-bold text-rose-600 uppercase tracking-widest mb-3 sm:mb-4">Главная Миссия (Кредо)</label>
-                           <textarea id="visionMission" class="auto-resize vision-input w-full bg-transparent p-0 text-slate-800 resize-none font-semibold text-lg sm:text-xl leading-relaxed text-center placeholder:text-slate-300 min-h-[4rem] outline-none focus:ring-0" placeholder="«Прервать цепь боли и стать точкой опоры...»"></textarea>
+                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50/50 rounded-2xl sm:rounded-3xl p-4 sm:p-8 border border-indigo-100/50 text-center relative overflow-hidden h-max shadow-sm w-full">
+                           <div class="absolute top-0 right-0 p-3 sm:p-6 text-2xl sm:text-4xl opacity-10">✨</div>
+                           <label class="block text-[9px] sm:text-xs font-bold text-rose-600 uppercase tracking-widest mb-2 sm:mb-4">Главная Миссия (Кредо)</label>
+                           <textarea id="visionMission" class="auto-resize vision-input w-full bg-transparent p-0 text-slate-800 resize-none font-semibold text-base sm:text-xl leading-relaxed text-center placeholder:text-slate-300 min-h-[3rem] sm:min-h-[4rem] outline-none focus:ring-0 break-words" placeholder="«Прервать цепь боли...»"></textarea>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start w-full">
                         
-                        <div class="lg:col-span-5 space-y-6">
+                        <div class="lg:col-span-5 space-y-5 sm:space-y-6 w-full min-w-0">
                             
-                            <div class="bg-gradient-to-br from-brand-purple to-indigo-600 rounded-3xl p-6 sm:p-8 shadow-lg flex flex-col relative overflow-hidden h-max">
-                                <div class="absolute -bottom-10 -right-10 w-32 h-32 sm:w-40 sm:h-40 bg-white opacity-5 rounded-full blur-2xl"></div>
-                                <span class="text-[8px] sm:text-[9px] font-bold bg-white/20 text-white px-3 py-1 rounded-full w-max mb-4 sm:mb-6 uppercase tracking-wider">Текущий квартал</span>
-                                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 relative z-10 text-white">Видение на 12 недель</h3>
-                                <textarea id="vision12Weeks" class="auto-resize vision-input w-full bg-transparent text-white placeholder:text-white/50 resize-none text-sm md:text-base font-medium leading-relaxed relative z-10 min-h-[6rem] sm:min-h-[8rem] outline-none hover:bg-white/5 focus:bg-white/10 focus:ring-2 focus:ring-white/30 rounded-xl p-2 sm:p-3 -mx-2 sm:-mx-3 transition-all" placeholder="Главные достижения этого квартала... (Отображается на Дашборде)"></textarea>
-                                <div class="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-white/20 relative z-10">
-                                    <div class="flex justify-between items-end mb-2">
-                                        <p class="text-[9px] sm:text-[10px] text-white/70 uppercase tracking-wider font-semibold" id="visionBlockProgressText">Прогресс квартала: 0%</p>
+                            <div class="bg-gradient-to-br from-brand-purple to-indigo-600 rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-lg flex flex-col relative overflow-hidden h-max w-full">
+                                <div class="absolute -bottom-10 -right-10 w-24 h-24 sm:w-40 sm:h-40 bg-white opacity-5 rounded-full blur-xl sm:blur-2xl"></div>
+                                <span class="text-[7px] sm:text-[9px] font-bold bg-white/20 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full w-max mb-3 sm:mb-6 uppercase tracking-wider">Текущий квартал</span>
+                                <h3 class="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 relative z-10 text-white">Видение на 12 недель</h3>
+                                <textarea id="vision12Weeks" class="auto-resize vision-input w-full bg-transparent text-white placeholder:text-white/50 resize-none text-xs sm:text-base font-medium leading-relaxed relative z-10 min-h-[5rem] sm:min-h-[8rem] outline-none hover:bg-white/5 focus:bg-white/10 focus:ring-2 focus:ring-white/30 rounded-lg sm:rounded-xl p-2 sm:p-3 -mx-2 sm:-mx-3 transition-all break-words" placeholder="Главные достижения этого квартала..."></textarea>
+                                <div class="mt-4 sm:mt-6 pt-3 sm:pt-6 border-t border-white/20 relative z-10 w-full">
+                                    <div class="flex justify-between items-end mb-1.5 sm:mb-2 w-full">
+                                        <p class="text-[8px] sm:text-[10px] text-white/70 uppercase tracking-wider font-semibold truncate" id="visionBlockProgressText">Прогресс: 0%</p>
                                     </div>
-                                    <div class="h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
+                                    <div class="h-1 sm:h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
                                         <div id="visionBlockProgress" class="h-full bg-emerald-400 transition-all duration-1000" style="width: 0%"></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex flex-col gap-2 relative overflow-hidden h-max">
-                                <h3 class="text-lg sm:text-xl font-bold text-slate-800 mb-2 relative z-10">Долгосрочное видение (3-5 лет)</h3>
-                                <textarea id="visionLong" class="auto-resize vision-input w-full bg-transparent text-slate-800 text-sm md:text-base leading-relaxed resize-none placeholder:text-slate-300 relative z-10 min-h-[8rem] sm:min-h-[10rem] outline-none hover:bg-slate-50 focus:bg-slate-50 focus:ring-2 focus:ring-brand-purple/20 rounded-xl p-3 sm:p-4 -mx-3 sm:-mx-4 transition-all" placeholder="«К 2028 году я создал...»"></textarea>
+                            <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex flex-col gap-1.5 sm:gap-2 relative overflow-hidden h-max w-full">
+                                <h3 class="text-base sm:text-xl font-bold text-slate-800 mb-1 sm:mb-2 relative z-10">Долгосрочное видение</h3>
+                                <textarea id="visionLong" class="auto-resize vision-input w-full bg-transparent text-slate-800 text-xs sm:text-base leading-relaxed resize-none placeholder:text-slate-300 relative z-10 min-h-[6rem] sm:min-h-[10rem] outline-none hover:bg-slate-50 focus:bg-slate-50 focus:ring-2 focus:ring-brand-purple/20 rounded-lg sm:rounded-xl p-2 sm:p-4 -mx-2 sm:-mx-4 transition-all break-words" placeholder="«К 2028 году я создал...»"></textarea>
                             </div>
                             
-                            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex flex-col h-max">
-                                <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-4 sm:mb-5 flex items-center"><span class="text-brand-purple mr-2 text-xl">✔</span> Основные ценности</h3>
-                                <div class="space-y-4 flex-1" id="visionValuesContainer"></div>
+                            <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 flex flex-col h-max w-full">
+                                <h3 class="text-sm sm:text-lg font-bold text-slate-800 mb-3 sm:mb-5 flex items-center"><span class="text-brand-purple mr-1.5 sm:mr-2 text-lg sm:text-xl">✔</span> Основные ценности</h3>
+                                <div class="space-y-3 sm:space-y-4 flex-1 w-full" id="visionValuesContainer"></div>
                             </div>
 
-                            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 h-max">
-                                <h3 class="text-base sm:text-lg font-bold text-slate-800 mb-4 sm:mb-5 flex items-center"><span class="text-rose-400 mr-2 text-xl">⚓</span> Эмоциональные якори</h3>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full" id="visionAnchorsContainer"></div>
+                            <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 h-max w-full">
+                                <h3 class="text-sm sm:text-lg font-bold text-slate-800 mb-3 sm:mb-5 flex items-center"><span class="text-rose-400 mr-1.5 sm:mr-2 text-lg sm:text-xl">⚓</span> Эмоциональные якори</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 h-full w-full" id="visionAnchorsContainer"></div>
                             </div>
                         </div>
 
-                        <div class="lg:col-span-7 space-y-6 sm:space-y-10" id="visionPhotoGroupsContainer">
+                        <div class="lg:col-span-7 space-y-5 sm:space-y-10 w-full min-w-0" id="visionPhotoGroupsContainer">
                             </div>
 
                     </div>
                     
-                    <div class="mt-10 sm:mt-16 text-center max-w-2xl mx-auto pb-10 px-4">
-                        <p class="text-lg sm:text-xl italic text-slate-400 font-serif">«Ваше будущее создается тем, что вы делаете сегодня, а не тем, что вы планируете сделать завтра».</p>
+                    <div class="mt-8 sm:mt-16 text-center max-w-2xl mx-auto pb-6 sm:pb-10 px-2 sm:px-4 w-full">
+                        <p class="text-sm sm:text-xl italic text-slate-400 font-serif">«Ваше будущее создается тем, что вы делаете сегодня, а не тем, что вы планируете сделать завтра».</p>
                     </div>
                 </div>
             </div>
 
             <div id="page-profile" class="page-view w-full">
-                <div class="max-w-2xl mx-auto">
-                    <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-slate-100 mb-6 sm:mb-8 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 sm:p-6 text-4xl opacity-10">👤</div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2 relative z-10">Личный профиль</h2>
-                        <p class="text-slate-500 text-xs sm:text-sm mb-6 sm:mb-8 relative z-10">Настройки вашего аккаунта и синхронизации с облаком.</p>
+                <div class="max-w-2xl mx-auto w-full min-w-0">
+                    <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-[0_2px_15px_rgba(0,0,0,0.03)] border border-slate-100 mb-5 sm:mb-8 relative overflow-hidden w-full">
+                        <div class="absolute top-0 right-0 p-3 sm:p-6 text-3xl sm:text-4xl opacity-10">👤</div>
+                        <h2 class="text-xl sm:text-3xl font-bold text-slate-800 mb-1.5 sm:mb-2 relative z-10">Личный профиль</h2>
+                        <p class="text-slate-500 text-[10px] sm:text-sm mb-4 sm:mb-8 relative z-10">Настройки аккаунта.</p>
                         
-                        <div class="space-y-5 sm:space-y-6 relative z-10">
-                            <div>
-                                <label class="block text-[10px] sm:text-xs font-bold text-slate-600 uppercase mb-2 ml-1">Email аккаунта</label>
-                                <input type="text" id="profileEmail" class="w-full bg-slate-50 rounded-xl p-3 sm:p-4 border border-slate-200 text-sm font-medium text-slate-500 cursor-not-allowed" disabled value="--">
-                                <p class="text-[9px] sm:text-[10px] text-slate-400 mt-2 ml-1">Email используется для входа и не может быть изменен.</p>
+                        <div class="space-y-4 sm:space-y-6 relative z-10 w-full">
+                            <div class="w-full">
+                                <label class="block text-[9px] sm:text-xs font-bold text-slate-600 uppercase mb-1.5 sm:mb-2 ml-1">Email аккаунта</label>
+                                <input type="text" id="profileEmail" class="w-full bg-slate-50 rounded-xl p-3 sm:p-4 border border-slate-200 text-xs sm:text-sm font-medium text-slate-500 cursor-not-allowed truncate" disabled value="--">
+                                <p class="text-[8px] sm:text-[10px] text-slate-400 mt-1.5 sm:mt-2 ml-1">Email используется для входа.</p>
                             </div>
                             
-                            <div>
-                                <label class="block text-[10px] sm:text-xs font-bold text-brand-purple uppercase mb-2 ml-1">Ваше Имя</label>
-                                <input type="text" id="profileName" class="w-full bg-white rounded-xl p-3 sm:p-4 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none text-sm font-bold text-slate-800 shadow-sm transition-all placeholder:text-slate-300" placeholder="Как к вам обращаться?">
+                            <div class="w-full">
+                                <label class="block text-[9px] sm:text-xs font-bold text-brand-purple uppercase mb-1.5 sm:mb-2 ml-1">Ваше Имя</label>
+                                <input type="text" id="profileName" class="w-full bg-white rounded-xl p-3 sm:p-4 border border-slate-200 focus:ring-2 focus:ring-brand-purple/50 outline-none text-xs sm:text-sm font-bold text-slate-800 shadow-sm transition-all placeholder:text-slate-300 break-words" placeholder="Как к вам обращаться?">
                             </div>
                             
-                            <button id="btnSaveProfile" class="w-full bg-brand-purple text-white rounded-xl py-3.5 sm:py-4 text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md mt-2 sm:mt-4 flex items-center justify-center">
-                                <span class="mr-2">💾</span> Сохранить изменения
+                            <button id="btnSaveProfile" class="w-full bg-brand-purple text-white rounded-xl py-3 sm:py-4 text-xs sm:text-sm font-bold hover:bg-indigo-700 transition-colors shadow-md mt-2 sm:mt-4 flex items-center justify-center">
+                                <span class="mr-1.5 sm:mr-2">💾</span> Сохранить изменения
                             </button>
                         </div>
                     </div>
 
-                    <div class="bg-rose-50/50 rounded-3xl p-6 sm:p-8 md:p-10 border border-rose-100">
-                        <h3 class="text-lg sm:text-xl font-bold text-rose-800 mb-2 flex items-center"><span class="mr-2">⚠️</span> Опасная зона</h3>
-                        <p class="text-xs sm:text-sm text-rose-600/80 mb-5 sm:mb-6">При выходе из аккаунта вы больше не сможете синхронизировать прогресс на этом устройстве до повторного входа.</p>
-                        <button id="btnProfileLogout" class="bg-white text-rose-600 border border-rose-200 rounded-xl px-5 sm:px-6 py-3 sm:py-3.5 text-sm font-bold hover:bg-rose-50 transition-colors w-full sm:w-auto shadow-sm">
+                    <div class="bg-rose-50/50 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 border border-rose-100 w-full min-w-0">
+                        <h3 class="text-base sm:text-xl font-bold text-rose-800 mb-1.5 sm:mb-2 flex items-center"><span class="mr-1.5 sm:mr-2">⚠️</span> Опасная зона</h3>
+                        <p class="text-[10px] sm:text-sm text-rose-600/80 mb-4 sm:mb-6">При выходе из аккаунта вы больше не сможете синхронизировать прогресс до повторного входа.</p>
+                        <button id="btnProfileLogout" class="bg-white text-rose-600 border border-rose-200 rounded-xl px-4 sm:px-6 py-2.5 sm:py-3.5 text-xs sm:text-sm font-bold hover:bg-rose-50 transition-colors w-full sm:w-auto shadow-sm text-center">
                             Выйти из аккаунта
                         </button>
                     </div>
@@ -684,7 +684,7 @@
                 const newName = document.getElementById('profileName').value.trim();
                 const btn = document.getElementById('btnSaveProfile');
                 const originalText = btn.innerHTML;
-                btn.innerHTML = `<span class="mr-2">⏳</span> Сохранение...`;
+                btn.innerHTML = `<span class="mr-1.5 sm:mr-2">⏳</span> Сохранение...`;
                 
                 const { data, error } = await supabase.auth.updateUser({
                     data: { full_name: newName }
@@ -696,7 +696,7 @@
                 } else {
                     currentUser = data.user;
                     updateUserBadge();
-                    btn.innerHTML = `<span class="mr-2">✓</span> Успешно сохранено!`;
+                    btn.innerHTML = `<span class="mr-1.5 sm:mr-2">✓</span> Сохранено!`;
                     btn.classList.replace('bg-brand-purple', 'bg-emerald-500');
                     btn.classList.replace('hover:bg-indigo-700', 'hover:bg-emerald-600');
                     setTimeout(() => {
@@ -718,9 +718,9 @@
             const WEEKS_PER_BLOCK = 13;
             const TOTAL_WEEKS = 52;
             const priorityConfig = {
-                high: { color: 'bg-rose-50 text-rose-500 border border-rose-100', label: 'высокий' },
-                medium: { color: 'bg-amber-50 text-amber-600 border border-amber-100', label: 'средний' },
-                low: { color: 'bg-slate-100 text-slate-500 border border-slate-200', label: 'низкий' }
+                high: { color: 'bg-rose-50 text-rose-500 border border-rose-100', label: 'выс' },
+                medium: { color: 'bg-amber-50 text-amber-600 border border-amber-100', label: 'ср' },
+                low: { color: 'bg-slate-100 text-slate-500 border border-slate-200', label: 'низ' }
             };
             const priorityWeights = { high: 3, medium: 2, low: 1 };
 
@@ -817,7 +817,7 @@
                 const btnText = document.getElementById('globalSaveBtnText');
                 const btn = e.currentTarget;
                 const originalText = btnText.innerText;
-                btnText.innerText = "Сохранено!";
+                btnText.innerText = "Успех!";
                 btn.classList.replace('bg-brand-purple', 'bg-emerald-500'); btn.classList.replace('hover:bg-indigo-700', 'hover:bg-emerald-600');
                 setTimeout(() => { 
                     btnText.innerText = originalText;
@@ -867,7 +867,7 @@
                 const monthLabel = document.getElementById(labelId);
                 if (!appData.startDate) {
                     if(monthLabel) monthLabel.innerText = 'Календарь (не задан старт)';
-                    if(container) container.innerHTML = '<p class="text-xs text-slate-400 py-3 italic px-2">Укажите дату старта во вкладке Планы и цели, чтобы календарь заработал.</p>';
+                    if(container) container.innerHTML = '<p class="text-[10px] sm:text-xs text-slate-400 py-2 sm:py-3 italic px-1 sm:px-2">Укажите дату старта во вкладке Планы и цели, чтобы календарь заработал.</p>';
                     return;
                 }
                 const actW = weekNum || appData.currentWeek;
@@ -888,10 +888,10 @@
                         const isCurW = cZero >= sZero && cZero <= eZero;
                         const isTod = cZero === tZero;
                         let bg = isCurW ? 'bg-brand-purple text-white shadow-md' : (isTod ? 'bg-white text-brand-purple border-brand-purple/30' : 'bg-slate-50 text-slate-400 border-slate-100');
-                        h += `<div class="flex flex-col items-center justify-center flex-1 h-10 sm:h-12 md:h-14 rounded-lg border cursor-default ${bg}">
-                            <span class="text-[6px] sm:text-[7px] md:text-[9px] font-bold uppercase opacity-80">${dMap[cur.getDay()]}</span>
-                            <span class="text-[9px] sm:text-[10px] md:text-sm font-bold leading-tight ${isTod && !isCurW ? 'text-brand-purple' : ''}">${i}</span>
-                            ${isTod ? `<div class="w-1 h-1 rounded-full mt-0.5 ${isCurW ? 'bg-white' : 'bg-brand-purple'}"></div>` : ''}
+                        h += `<div class="flex flex-col items-center justify-center flex-1 h-9 sm:h-10 md:h-14 rounded-lg border cursor-default ${bg}">
+                            <span class="text-[5px] sm:text-[7px] md:text-[9px] font-bold uppercase opacity-80">${dMap[cur.getDay()]}</span>
+                            <span class="text-[8px] sm:text-[10px] md:text-sm font-bold leading-tight ${isTod && !isCurW ? 'text-brand-purple' : ''}">${i}</span>
+                            ${isTod ? `<div class="w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full mt-0.5 ${isCurW ? 'bg-white' : 'bg-brand-purple'}"></div>` : ''}
                         </div>`;
                     }
                     container.innerHTML = h;
@@ -901,27 +901,27 @@
             const renderPlanTab = () => {
                 document.querySelectorAll('.plan-block-btn').forEach(btn => {
                     btn.className = parseInt(btn.dataset.block) === activePlanBlock 
-                        ? "plan-block-btn flex-1 py-2 px-2 sm:px-1 rounded-lg text-[10px] xl:text-xs font-bold bg-white text-brand-purple shadow-sm transition-all whitespace-nowrap min-w-[100px] sm:min-w-0"
-                        : "plan-block-btn flex-1 py-2 px-2 sm:px-1 rounded-lg text-[10px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[100px] sm:min-w-0";
+                        ? "plan-block-btn flex-1 py-1.5 sm:py-2 px-2 sm:px-1 rounded-lg text-[9px] xl:text-xs font-bold bg-white text-brand-purple shadow-sm transition-all whitespace-nowrap min-w-[80px] sm:min-w-0"
+                        : "plan-block-btn flex-1 py-1.5 sm:py-2 px-2 sm:px-1 rounded-lg text-[9px] xl:text-xs font-bold text-slate-500 hover:text-slate-800 transition-all bg-transparent whitespace-nowrap min-w-[80px] sm:min-w-0";
                 });
-                document.getElementById('planCurrentBlockLabel').innerText = `Для Блока ${activePlanBlock}`;
+                document.getElementById('planCurrentBlockLabel').innerText = `Блок ${activePlanBlock}`;
                 document.getElementById('taskSubBlockLabel').innerText = `Блока ${activePlanBlock}`;
                 document.getElementById('tasksListHeaderLabel').innerText = `Практики Блока ${activePlanBlock}`;
 
                 const aGoals = appData.goals.filter(g => g.block === activePlanBlock);
                 const gList = document.getElementById('goalsList');
-                if (aGoals.length === 0) gList.innerHTML = '<p class="text-sm text-slate-400 italic">У вас пока нет целей в этом блоке.</p>';
+                if (aGoals.length === 0) gList.innerHTML = '<p class="text-[10px] sm:text-sm text-slate-400 italic">У вас пока нет целей в этом блоке.</p>';
                 else {
                     gList.innerHTML = aGoals.map(g => `
-                        <div class="flex justify-between items-start bg-slate-50 p-3 sm:p-4 rounded-xl border border-slate-200 transition-colors">
-                            <div class="flex-1 w-full mr-2 sm:mr-4">
-                                <div class="flex flex-wrap items-center gap-2 mb-2">
-                                    <span class="text-[9px] sm:text-[10px] font-bold bg-brand-purple/10 text-brand-purple px-2 py-1 rounded uppercase tracking-wider">Блок ${g.block}</span>
-                                    <span class="text-[9px] sm:text-[10px] text-slate-400 font-medium">${getBlockDates(g.block)}</span>
+                        <div class="flex justify-between items-start bg-slate-50 p-3 sm:p-4 rounded-xl border border-slate-200 transition-colors w-full">
+                            <div class="flex-1 min-w-0 mr-2 sm:mr-4">
+                                <div class="flex flex-wrap items-center gap-1 sm:gap-2 mb-1.5 sm:mb-2">
+                                    <span class="text-[8px] sm:text-[10px] font-bold bg-brand-purple/10 text-brand-purple px-1.5 sm:px-2 py-0.5 sm:py-1 rounded uppercase tracking-wider whitespace-nowrap">Блок ${g.block}</span>
+                                    <span class="text-[8px] sm:text-[10px] text-slate-400 font-medium whitespace-nowrap">${getBlockDates(g.block)}</span>
                                 </div>
-                                <textarea data-id="${g.id}" class="auto-resize goal-edit-input w-full bg-transparent text-xs sm:text-sm font-semibold text-slate-800 leading-snug resize-none overflow-hidden focus:bg-white focus:ring-2 focus:ring-brand-purple/50 rounded-lg p-2 -mx-2 transition-all outline-none min-h-[3rem]" rows="2" title="Кликните, чтобы отредактировать">${g.title}</textarea>
+                                <textarea data-id="${g.id}" class="auto-resize goal-edit-input w-full bg-transparent text-[11px] sm:text-sm font-semibold text-slate-800 leading-snug resize-none overflow-hidden focus:bg-white focus:ring-2 focus:ring-brand-purple/50 rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-all outline-none min-h-[2.5rem] sm:min-h-[3rem] break-words" rows="2" title="Кликните, чтобы отредактировать">${g.title}</textarea>
                             </div>
-                            <button data-id="${g.id}" class="delete-goal-btn text-red-400 hover:text-red-600 text-lg sm:text-xl leading-none ml-1 shrink-0 self-start mt-2 p-2" title="Удалить">×</button>
+                            <button data-id="${g.id}" class="delete-goal-btn text-red-400 hover:text-red-600 text-base sm:text-xl leading-none ml-1 shrink-0 self-start mt-1.5 sm:mt-2 p-1.5 sm:p-2" title="Удалить">×</button>
                         </div>`).join('');
                 }
 
@@ -934,18 +934,18 @@
                 
                 const tList = document.getElementById('tasksPreviewList');
                 const aTasks = appData.tasks.filter(t => aGoals.find(g => g.id === t.goalId));
-                if(aTasks.length === 0) tList.innerHTML = '<p class="text-sm text-slate-400 italic">Практики пока не добавлены.</p>';
+                if(aTasks.length === 0) tList.innerHTML = '<p class="text-[10px] sm:text-sm text-slate-400 italic">Практики пока не добавлены.</p>';
                 else {
                     tList.innerHTML = aTasks.slice().reverse().map(t => {
                         const g = appData.goals.find(x => x.id === t.goalId);
                         const pConf = priorityConfig[t.priority || 'medium'];
                         return `
-                        <div class="flex justify-between items-center bg-white p-2 sm:p-3 rounded-xl border border-slate-100 shadow-sm">
-                            <div class="flex-1 min-w-0 pr-2 sm:pr-4">
-                                <div class="flex flex-wrap items-center text-[9px] sm:text-[10px] text-slate-400 mb-1"><span class="font-bold text-brand-purple mr-2">Нед. ${t.week}</span> | <span class="truncate ml-2 max-w-[100px] sm:max-w-[150px]">${g?g.title:'-'}</span></div>
-                                <div class="flex flex-wrap items-center gap-2 mt-1"><p class="text-xs sm:text-sm font-medium text-slate-700 truncate"><span class="mr-1">${t.type==='daily'?'☀️':'🎯'}</span> ${t.title}</p><span class="${pConf.color} px-2 py-0.5 rounded text-[7px] sm:text-[8px] font-bold uppercase shrink-0 mt-1 sm:mt-0">${pConf.label}</span></div>
+                        <div class="flex justify-between items-center bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl border border-slate-100 shadow-sm w-full gap-2">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex flex-wrap items-center text-[8px] sm:text-[10px] text-slate-400 mb-1"><span class="font-bold text-brand-purple mr-1.5 sm:mr-2">Нед. ${t.week}</span> <span class="hidden sm:inline">|</span> <span class="truncate ml-0 sm:ml-2 max-w-full sm:max-w-[150px] w-full sm:w-auto">${g?g.title:'-'}</span></div>
+                                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1"><span class="text-xs sm:text-sm shrink-0">${t.type==='daily'?'☀️':'🎯'}</span> <p class="text-[10px] sm:text-sm font-medium text-slate-700 truncate flex-1 min-w-0">${t.title}</p><span class="${pConf.color} px-1.5 sm:px-2 py-0.5 rounded text-[7px] sm:text-[8px] font-bold uppercase shrink-0 mt-1 sm:mt-0">${pConf.label}</span></div>
                             </div>
-                            <button data-id="${t.id}" class="delete-task-btn text-red-400 hover:text-red-600 font-bold text-base sm:text-lg leading-none shrink-0 p-2">×</button>
+                            <button data-id="${t.id}" class="delete-task-btn text-red-400 hover:text-red-600 font-bold text-sm sm:text-lg leading-none shrink-0 p-1.5 sm:p-2">×</button>
                         </div>`;
                     }).join('');
                 }
@@ -980,7 +980,7 @@
                 ws.disabled = false;
                 const selG = appData.goals.find(g => g.id === e.target.value);
                 if(selG) {
-                    let h = `<option value="all" class="font-bold text-brand-purple">⚡ Весь блок ${selG.block} (все 13 недель)</option>`;
+                    let h = `<option value="all" class="font-bold text-brand-purple">⚡ Весь блок ${selG.block} (13 нед.)</option>`;
                     getWeeksForBlock(selG.block).forEach(w => {
                         const dStr = getWeekDates(w).str;
                         h += `<option value="${w}" ${w%WEEKS_PER_BLOCK===0 ? 'class="text-amber-600 font-bold"' : ''}>Неделя ${w} ${w%WEEKS_PER_BLOCK===0?'- РЕФЛЕКСИЯ':''} (${dStr})</option>`;
@@ -1027,8 +1027,8 @@
             const renderRewardsTab = () => {
                 document.querySelectorAll('.reward-block-btn').forEach(btn => {
                     btn.className = parseInt(btn.dataset.block) === activeRewardBlock 
-                        ? "reward-block-btn flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-brand-purple text-white shadow-sm"
-                        : "reward-block-btn flex-1 lg:flex-none px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors bg-transparent";
+                        ? "reward-block-btn flex-1 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-[9px] sm:text-sm font-bold bg-brand-purple text-white shadow-sm"
+                        : "reward-block-btn flex-1 px-2 sm:px-4 py-1.5 sm:py-2 rounded-md sm:rounded-lg text-[9px] sm:text-sm font-bold text-slate-500 hover:bg-slate-200 transition-colors bg-transparent";
                 });
                 
                 const r = appData.rewards[activeRewardBlock];
@@ -1045,22 +1045,22 @@
                     const bgStyle = data.image ? `background-image: url('${data.image}')` : '';
                     
                     html += `
-                        <div class="bonus-card border-2 border-slate-200 rounded-3xl p-5 sm:p-6 md:p-8 relative flex flex-col" id="card_${t.key}">
+                        <div class="bonus-card border-2 border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 relative flex flex-col w-full min-w-0" id="card_${t.key}">
                             <div class="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 text-3xl sm:text-4xl">${t.icon}</div>
-                            <h4 class="font-bold text-base sm:text-lg text-${t.colorCls} uppercase tracking-wider mb-4 sm:mb-6 border-b border-slate-100 pb-2 sm:pb-3">${t.label}</h4>
+                            <h4 class="font-bold text-sm sm:text-lg text-${t.colorCls} uppercase tracking-wider mb-3 sm:mb-6 border-b border-slate-100 pb-2 sm:pb-3">${t.label}</h4>
                             
-                            <div class="flex flex-col xl:flex-row gap-4 sm:gap-6 items-start flex-1 w-full">
-                                <div class="flex-1 space-y-3 sm:space-y-4 w-full">
-                                    <div><label class="block text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase mb-1">План: Цель (%)</label><input type="number" id="rew${t.key.charAt(0).toUpperCase() + t.key.slice(1)}Pct" class="w-20 sm:w-24 bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-200 text-xs sm:text-sm font-bold outline-none text-center focus:bg-white focus:ring-2 focus:ring-${t.focusCls}/50 transition-all" min="1" max="100" value="${data.pct}" oninput="appDataGlobal.rewards[${activeRewardBlock}].${t.key}.pct = parseInt(this.value)||0; saveData(); updateRewardsVisuals();"></div>
-                                    <div><label class="block text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase mb-1">Что я получу (Название)</label><textarea id="rew${t.key.charAt(0).toUpperCase() + t.key.slice(1)}Name" class="auto-resize w-full bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-200 text-xs sm:text-sm outline-none resize-none min-h-[3rem] sm:min-h-[4rem] focus:bg-white focus:ring-2 focus:ring-${t.focusCls}/50 transition-all" oninput="appDataGlobal.rewards[${activeRewardBlock}].${t.key}.name = this.value; saveData();">${data.name}</textarea></div>
-                                    <div><label class="block text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase mb-1">Бюджет / Стоимость</label><input type="text" id="rew${t.key.charAt(0).toUpperCase() + t.key.slice(1)}Cost" class="w-full bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-200 text-xs sm:text-sm outline-none focus:bg-white focus:ring-2 focus:ring-${t.focusCls}/50 transition-all" placeholder="Напр. 15 000 руб." value="${data.cost}" oninput="appDataGlobal.rewards[${activeRewardBlock}].${t.key}.cost = this.value; saveData();"></div>
+                            <div class="flex flex-col xl:flex-row gap-3 sm:gap-6 items-start flex-1 w-full min-w-0">
+                                <div class="flex-1 space-y-3 sm:space-y-4 w-full min-w-0">
+                                    <div><label class="block text-[8px] sm:text-[10px] font-bold text-slate-500 uppercase mb-1">План: Цель (%)</label><input type="number" id="rew${t.key.charAt(0).toUpperCase() + t.key.slice(1)}Pct" class="w-16 sm:w-24 bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-200 text-xs sm:text-sm font-bold outline-none text-center focus:bg-white focus:ring-2 focus:ring-${t.focusCls}/50 transition-all" min="1" max="100" value="${data.pct}" oninput="appDataGlobal.rewards[${activeRewardBlock}].${t.key}.pct = parseInt(this.value)||0; saveData(); updateRewardsVisuals();"></div>
+                                    <div><label class="block text-[8px] sm:text-[10px] font-bold text-slate-500 uppercase mb-1">Что я получу</label><textarea id="rew${t.key.charAt(0).toUpperCase() + t.key.slice(1)}Name" class="auto-resize w-full bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-200 text-[10px] sm:text-sm outline-none resize-none min-h-[3rem] sm:min-h-[4rem] focus:bg-white focus:ring-2 focus:ring-${t.focusCls}/50 transition-all break-words" oninput="appDataGlobal.rewards[${activeRewardBlock}].${t.key}.name = this.value; saveData();">${data.name}</textarea></div>
+                                    <div><label class="block text-[8px] sm:text-[10px] font-bold text-slate-500 uppercase mb-1">Стоимость</label><input type="text" id="rew${t.key.charAt(0).toUpperCase() + t.key.slice(1)}Cost" class="w-full bg-slate-50 rounded-xl p-2 sm:p-3 border border-slate-200 text-[10px] sm:text-sm outline-none focus:bg-white focus:ring-2 focus:ring-${t.focusCls}/50 transition-all break-words" placeholder="Напр. 15 000 руб." value="${data.cost}" oninput="appDataGlobal.rewards[${activeRewardBlock}].${t.key}.cost = this.value; saveData();"></div>
                                 </div>
-                                <div class="w-full xl:w-48 h-40 sm:h-48 shrink-0">
-                                    <div id="rewImg_${t.key}" class="vision-image-card w-full h-full rounded-2xl flex items-center justify-center ${hasImg}" style="${bgStyle}" onclick="if(!event.target.classList.contains('delete-img-btn')) document.getElementById('upRew_${t.key}').click()">
+                                <div class="w-full xl:w-48 h-32 sm:h-48 shrink-0">
+                                    <div id="rewImg_${t.key}" class="vision-image-card w-full h-full rounded-xl sm:rounded-2xl flex items-center justify-center ${hasImg}" style="${bgStyle}" onclick="if(!event.target.classList.contains('delete-img-btn')) document.getElementById('upRew_${t.key}').click()">
                                         <input type="file" id="upRew_${t.key}" class="hidden" accept="image/*" onchange="window.uploadRewardImage(event, ${activeRewardBlock}, '${t.key}', 'rewImg_${t.key}')">
-                                        <div class="vision-upload-icon text-2xl sm:text-3xl">📸</div>
-                                        <button class="absolute top-2 right-2 bg-rose-500 hover:bg-rose-600 text-white rounded-full w-5 sm:w-6 h-5 sm:h-6 items-center justify-center delete-img-btn text-xs transition-colors" onclick="window.deleteRewardImage(event, ${activeRewardBlock}, '${t.key}', 'rewImg_${t.key}')">✕</button>
-                                        <span class="empty-text text-slate-300 font-medium text-[10px] sm:text-xs mt-6 sm:mt-8 absolute pointer-events-none">Фото награды</span>
+                                        <div class="vision-upload-icon text-xl sm:text-3xl">📸</div>
+                                        <button class="absolute top-1.5 right-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full w-5 sm:w-6 h-5 sm:h-6 items-center justify-center delete-img-btn text-[10px] sm:text-xs transition-colors" onclick="window.deleteRewardImage(event, ${activeRewardBlock}, '${t.key}', 'rewImg_${t.key}')">✕</button>
+                                        <span class="empty-text text-slate-300 font-medium text-[9px] sm:text-xs mt-6 sm:mt-8 absolute pointer-events-none">Фото награды</span>
                                     </div>
                                 </div>
                             </div>
@@ -1075,9 +1075,9 @@
 
             const updateRewardsVisuals = () => {
                 const f = getBlockFactProgress(activeRewardBlock);
-                document.getElementById('rewardFactSubtitle').innerText = `Факт выполнения: Блок ${activeRewardBlock}`;
+                document.getElementById('rewardFactSubtitle').innerText = `Факт: Блок ${activeRewardBlock}`;
                 document.getElementById('rewardFactPct').innerText = `${f.pct}%`;
-                document.getElementById('rewardFactScore').innerText = `${f.earned} / ${f.total} очков собрано`;
+                document.getElementById('rewardFactScore').innerText = `${f.earned} / ${f.total} очков`;
 
                 const r = appData.rewards[activeRewardBlock];
                 let hA = 'none';
@@ -1086,10 +1086,10 @@
                 else if (f.pct >= r.bronze.pct && f.total > 0) hA = 'bronze';
 
                 const bdg = document.getElementById('rewardStatusBadge');
-                if (hA === 'gold') { bdg.className = "inline-block w-full md:w-auto text-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-amber-100 text-amber-700 border border-amber-300"; bdg.innerText = "🏆 Золото достигнуто!"; }
-                else if (hA === 'silver') { bdg.className = "inline-block w-full md:w-auto text-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-slate-200 text-slate-700 border border-slate-400"; bdg.innerText = "🏆 Серебро достигнуто!"; }
-                else if (hA === 'bronze') { bdg.className = "inline-block w-full md:w-auto text-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-orange-100 text-orange-700 border border-orange-300"; bdg.innerText = "🏆 Бронза достигнута!"; }
-                else { bdg.className = "inline-block w-full md:w-auto text-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold bg-slate-800 text-slate-400 border border-slate-700"; bdg.innerText = "Пока не достигнуто"; }
+                if (hA === 'gold') { bdg.className = "inline-block w-full md:w-auto text-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-sm font-bold bg-amber-100 text-amber-700 border border-amber-300"; bdg.innerText = "🏆 Золото достигнуто!"; }
+                else if (hA === 'silver') { bdg.className = "inline-block w-full md:w-auto text-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-sm font-bold bg-slate-200 text-slate-700 border border-slate-400"; bdg.innerText = "🏆 Серебро достигнуто!"; }
+                else if (hA === 'bronze') { bdg.className = "inline-block w-full md:w-auto text-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-sm font-bold bg-orange-100 text-orange-700 border border-orange-300"; bdg.innerText = "🏆 Бронза достигнута!"; }
+                else { bdg.className = "inline-block w-full md:w-auto text-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[10px] sm:text-sm font-bold bg-slate-800 text-slate-400 border border-slate-700 truncate"; bdg.innerText = "Пока не достигнуто"; }
 
                 ['gold', 'silver', 'bronze'].forEach(t => {
                     const c = document.getElementById('card_' + t);
@@ -1126,7 +1126,7 @@
                 const cWDays = getDaysForWeek(appData.currentWeek);
 
                 if (cbGoals.length === 0) {
-                    gc.innerHTML = `<div class="bg-indigo-50/50 rounded-3xl p-6 sm:p-10 text-center border border-indigo-100 border-dashed"><span class="text-3xl sm:text-4xl block mb-2 sm:mb-3">🎯</span><h3 class="text-base sm:text-lg font-bold text-indigo-900 mb-2">Целей на этот квартал пока нет</h3></div>`;
+                    gc.innerHTML = `<div class="bg-indigo-50/50 rounded-2xl sm:rounded-3xl p-5 sm:p-10 text-center border border-indigo-100 border-dashed w-full"><span class="text-2xl sm:text-4xl block mb-2 sm:mb-3">🎯</span><h3 class="text-xs sm:text-lg font-bold text-indigo-900 mb-1 sm:mb-2">Целей на этот квартал пока нет</h3></div>`;
                 } else {
                     let h = '';
                     cbGoals.forEach((g) => {
@@ -1142,57 +1142,57 @@
                         
                         totW += dT + wT; earnW += dE + wE;
 
-                        let dtHtml = dTasks.length === 0 ? '<p class="text-xs text-slate-300 italic">Нет ежедневных практик на эту неделю.</p>' : dTasks.map(t => {
+                        let dtHtml = dTasks.length === 0 ? '<p class="text-[10px] sm:text-xs text-slate-300 italic">Нет ежедневных практик на эту неделю.</p>' : dTasks.map(t => {
                             const pC = priorityConfig[t.priority || 'medium'];
                             const dPct = Math.round((t.days.filter(x=>x).length / 7) * 100);
                             return `
-                            <div class="bg-slate-50/50 rounded-2xl p-4 sm:p-5 border border-slate-100 mb-4">
-                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 gap-2 sm:gap-4">
-                                    <p class="font-bold text-slate-800 text-xs sm:text-sm truncate flex-1" title="${t.title}">${t.title}</p>
-                                    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                            <div class="bg-slate-50/50 rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-100 mb-3 sm:mb-4 w-full">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2.5 sm:mb-4 gap-2 sm:gap-4 w-full min-w-0">
+                                    <p class="font-bold text-slate-800 text-[10px] sm:text-sm truncate flex-1 min-w-0 w-full" title="${t.title}">${t.title}</p>
+                                    <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
                                         <div class="flex items-center gap-2 hidden md:flex"><div class="h-1.5 w-16 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-emerald-400" style="width: ${dPct}%"></div></div></div>
-                                        <span class="${pC.color} px-2 py-1 rounded-md text-[8px] sm:text-[10px] font-bold uppercase tracking-wide">${pC.label}</span>
+                                        <span class="${pC.color} px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[10px] font-bold uppercase tracking-wide">${pC.label}</span>
                                     </div>
                                 </div>
-                                <div class="flex justify-between gap-1 sm:gap-2">
+                                <div class="flex justify-between gap-0.5 sm:gap-2 w-full">
                                     ${t.days.map((isD, i) => {
                                         const dInf = cWDays[i];
                                         const c = isD ? "bg-brand-purple text-white border-brand-purple shadow-sm font-bold scale-105" : "bg-white text-slate-500 border-slate-200 hover:border-brand-purple/50 hover:text-brand-purple font-medium";
-                                        return `<button data-tid="${t.id}" data-did="${i}" class="dash-day-btn flex flex-col items-center justify-center flex-1 rounded-lg sm:rounded-xl text-[10px] sm:text-xs transition-all py-1.5 sm:py-2 border ${c} outline-none"><span class="mb-0.5">${dInf.name}</span>${dInf.date ? `<span class="text-[8px] sm:text-[9px] opacity-70 font-normal">${dInf.date.substring(0,5)}</span>` : ''}</button>`;
+                                        return `<button data-tid="${t.id}" data-did="${i}" class="dash-day-btn flex flex-col items-center justify-center flex-1 rounded-lg sm:rounded-xl text-[8px] sm:text-xs transition-all py-1 sm:py-2 border ${c} outline-none min-w-0"><span class="mb-0 sm:mb-0.5">${dInf.name}</span>${dInf.date ? `<span class="text-[6px] sm:text-[9px] opacity-70 font-normal hidden sm:block">${dInf.date.substring(0,5)}</span>` : ''}</button>`;
                                     }).join('')}
                                 </div>
                             </div>`;
                         }).join('');
 
-                        let wtHtml = wTasks.length === 0 ? '<p class="text-xs text-slate-300 italic">Нет еженедельных тактик на эту неделю.</p>' : wTasks.map(t => {
+                        let wtHtml = wTasks.length === 0 ? '<p class="text-[10px] sm:text-xs text-slate-300 italic">Нет еженедельных тактик на эту неделю.</p>' : wTasks.map(t => {
                             const pC = priorityConfig[t.priority || 'medium'];
                             return `
-                            <button data-tid="${t.id}" class="dash-week-btn w-full bg-${t.done?'slate-50':'white'} rounded-xl p-3 sm:p-4 flex flex-wrap sm:flex-nowrap items-center justify-between border border-slate-200 hover:border-brand-purple/50 transition-all mb-3 group outline-none text-left gap-2 sm:gap-0">
-                                <div class="flex items-center min-w-0 flex-1 pr-2 sm:pr-4">
-                                    <div class="w-4 h-4 sm:w-5 sm:h-5 rounded-full ${t.done?'bg-slate-200 text-slate-500 border-none':'border-2 border-slate-300 group-hover:border-brand-purple/50'} flex shrink-0 items-center justify-center text-[8px] sm:text-[10px] mr-2 sm:mr-3 transition-colors">${t.done?'✓':''}</div>
-                                    <p class="font-medium ${t.done?'text-slate-400 line-through':'text-slate-700'} text-xs sm:text-sm truncate">${t.title}</p>
+                            <button data-tid="${t.id}" class="dash-week-btn w-full bg-${t.done?'slate-50':'white'} rounded-xl p-2.5 sm:p-4 flex flex-nowrap items-center justify-between border border-slate-200 hover:border-brand-purple/50 transition-all mb-2 sm:mb-3 group outline-none text-left gap-2 min-w-0">
+                                <div class="flex items-center min-w-0 flex-1 pr-1 sm:pr-4">
+                                    <div class="w-3.5 h-3.5 sm:w-5 sm:h-5 rounded-full ${t.done?'bg-slate-200 text-slate-500 border-none':'border-2 border-slate-300 group-hover:border-brand-purple/50'} flex shrink-0 items-center justify-center text-[7px] sm:text-[10px] mr-1.5 sm:mr-3 transition-colors">${t.done?'✓':''}</div>
+                                    <p class="font-medium ${t.done?'text-slate-400 line-through':'text-slate-700'} text-[10px] sm:text-sm break-words line-clamp-2 w-full">${t.title}</p>
                                 </div>
-                                <span class="${pC.color} ${t.done?'opacity-50':''} px-2 py-1 rounded-md text-[8px] sm:text-[10px] font-bold uppercase shrink-0">${pC.label}</span>
+                                <span class="${pC.color} ${t.done?'opacity-50':''} px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[7px] sm:text-[10px] font-bold uppercase shrink-0">${pC.label}</span>
                             </button>`;
                         }).join('');
 
                         h += `
-                        <div class="bg-white rounded-3xl p-5 sm:p-6 md:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 mb-6">
-                            <h3 class="text-lg sm:text-2xl font-bold text-slate-800 mb-6 sm:mb-8">${g.title}</h3>
-                            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8">
-                                <div>
-                                    <div class="flex items-center justify-between mb-4 gap-2 sm:gap-4">
-                                        <h4 class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center shrink-0"><span class="mr-1.5 sm:mr-2 text-brand-purple text-base sm:text-lg">☀️</span> ЕЖЕДНЕВНЫЕ ПРАКТИКИ</h4>
-                                        ${dT>0 ? `<div class="flex items-center justify-end gap-1.5 sm:gap-2 flex-1"><div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden max-w-[80px] sm:max-w-[120px]"><div class="h-full bg-brand-purple transition-all" style="width: ${dP}%"></div></div><span class="text-[9px] sm:text-[10px] font-bold text-brand-purple w-6 sm:w-8 text-right">${dP}%</span></div>` : ''}
+                        <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 mb-5 sm:mb-6 w-full min-w-0">
+                            <h3 class="text-base sm:text-2xl font-bold text-slate-800 mb-4 sm:mb-8 break-words w-full">${g.title}</h3>
+                            <div class="grid grid-cols-1 xl:grid-cols-2 gap-5 sm:gap-8 w-full min-w-0">
+                                <div class="w-full min-w-0">
+                                    <div class="flex items-center justify-between mb-3 sm:mb-4 gap-2 sm:gap-4 w-full">
+                                        <h4 class="text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center shrink-0"><span class="mr-1 sm:mr-2 text-brand-purple text-sm sm:text-lg">☀️</span> ЕЖЕДНЕВНЫЕ ПРАКТИКИ</h4>
+                                        ${dT>0 ? `<div class="flex items-center justify-end gap-1.5 sm:gap-2 flex-1 min-w-0"><div class="h-1 sm:h-1.5 w-full bg-slate-100 rounded-full overflow-hidden max-w-[60px] sm:max-w-[120px]"><div class="h-full bg-brand-purple transition-all" style="width: ${dP}%"></div></div><span class="text-[8px] sm:text-[10px] font-bold text-brand-purple w-5 sm:w-8 text-right">${dP}%</span></div>` : ''}
                                     </div>
-                                    <div class="space-y-3 sm:space-y-4">${dtHtml}</div>
+                                    <div class="space-y-2 sm:space-y-4 w-full">${dtHtml}</div>
                                 </div>
-                                <div>
-                                    <div class="flex items-center justify-between mb-4 gap-2 sm:gap-4">
-                                        <h4 class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center shrink-0"><span class="mr-1.5 sm:mr-2 text-rose-400 text-base sm:text-lg">🎯</span> ЕЖЕНЕДЕЛЬНЫЕ ТАКТИКИ</h4>
-                                        ${wT>0 ? `<div class="flex items-center justify-end gap-1.5 sm:gap-2 flex-1"><div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden max-w-[80px] sm:max-w-[120px]"><div class="h-full bg-rose-400 transition-all" style="width: ${wP}%"></div></div><span class="text-[9px] sm:text-[10px] font-bold text-rose-500 w-6 sm:w-8 text-right">${wP}%</span></div>` : ''}
+                                <div class="w-full min-w-0">
+                                    <div class="flex items-center justify-between mb-3 sm:mb-4 gap-2 sm:gap-4 w-full">
+                                        <h4 class="text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center shrink-0"><span class="mr-1 sm:mr-2 text-rose-400 text-sm sm:text-lg">🎯</span> ЕЖЕНЕДЕЛЬНЫЕ ТАКТИКИ</h4>
+                                        ${wT>0 ? `<div class="flex items-center justify-end gap-1.5 sm:gap-2 flex-1 min-w-0"><div class="h-1 sm:h-1.5 w-full bg-slate-100 rounded-full overflow-hidden max-w-[60px] sm:max-w-[120px]"><div class="h-full bg-rose-400 transition-all" style="width: ${wP}%"></div></div><span class="text-[8px] sm:text-[10px] font-bold text-rose-500 w-5 sm:w-8 text-right">${wP}%</span></div>` : ''}
                                     </div>
-                                    <div class="space-y-2 sm:space-y-3">${wtHtml}</div>
+                                    <div class="space-y-2 sm:space-y-3 w-full">${wtHtml}</div>
                                 </div>
                             </div>
                         </div>`;
@@ -1206,11 +1206,11 @@
                 document.getElementById('scoreDetails').innerText = `${earnW} / ${totW} очков выполнено`;
 
                 const bCont = document.getElementById('dashboardBlocksContainer');
-                let bh = `<div class="mb-4 sm:mb-6 border-b border-slate-100 pb-3 sm:pb-4"><h3 class="text-lg sm:text-xl font-bold text-slate-800">Прогресс года по кварталам</h3><p class="text-[10px] sm:text-xs text-slate-500 mt-1">Сводная статистика исполнения по всем 52 неделям</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">`;
+                let bh = `<div class="mb-3 sm:mb-6 border-b border-slate-100 pb-2 sm:pb-4"><h3 class="text-base sm:text-xl font-bold text-slate-800">Прогресс года по кварталам</h3><p class="text-[9px] sm:text-xs text-slate-500 mt-1">Сводная статистика исполнения по всем 52 неделям</p></div><div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6 w-full">`;
                 for (let b = 1; b <= 4; b++) {
                     const bs = getBlockFactProgress(b);
                     const weeks = getWeeksForBlock(b);
-                    let wHtml = '<div class="flex flex-wrap gap-1 sm:gap-1.5 mt-2 sm:mt-3">';
+                    let wHtml = '<div class="flex flex-wrap gap-0.5 sm:gap-1.5 mt-2 sm:mt-3">';
                     
                     weeks.forEach(w => {
                         const wStats = getWeekFactProgress(w);
@@ -1218,10 +1218,10 @@
                         let c = 'bg-slate-100 text-slate-400';
                         if(iR) c = 'bg-amber-100 text-amber-700 border border-amber-200';
                         else if(wStats.total > 0) { if(wStats.pct >= 85) c = 'bg-emerald-500 text-white border border-emerald-600'; else if(wStats.pct >= 50) c = 'bg-emerald-300 text-emerald-900 border border-emerald-400'; else c = 'bg-rose-200 text-rose-900 border border-rose-300'; }
-                        wHtml += `<div class="w-5 h-5 sm:w-7 sm:h-7 rounded flex items-center justify-center text-[8px] sm:text-[9px] font-bold ${c} ${isCurrent?'ring-2 ring-brand-purple ring-offset-1 scale-110 z-10':''} cursor-default" title="${iR?'Рефлексия':wStats.pct+'%'}">${w}</div>`;
+                        wHtml += `<div class="w-4 h-4 sm:w-7 sm:h-7 rounded flex items-center justify-center text-[7px] sm:text-[9px] font-bold ${c} ${isCurrent?'ring-1 sm:ring-2 ring-brand-purple ring-offset-1 scale-110 z-10':''} cursor-default" title="${iR?'Рефлексия':wStats.pct+'%'}">${w}</div>`;
                     });
                     wHtml += '</div>';
-                    bh += `<div class="bg-slate-50 rounded-2xl p-4 sm:p-5 border border-slate-100"><div class="flex justify-between items-center mb-3 sm:mb-4"><div><h4 class="font-bold text-sm sm:text-base text-slate-800">Блок ${b} <span class="hidden sm:inline">(Квартал)</span></h4><span class="text-[9px] sm:text-[10px] text-slate-400 block sm:inline">${getBlockDates(b)}</span></div><div class="text-right"><span class="text-base sm:text-lg font-bold text-brand-purple">${bs.pct}%</span><div class="text-[9px] sm:text-[10px] text-slate-500">${bs.earned}/${bs.total} очков</div></div></div><div class="pt-2 border-t border-slate-200/60">${wHtml}</div></div>`;
+                    bh += `<div class="bg-slate-50 rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-100 w-full"><div class="flex justify-between items-center mb-2 sm:mb-4"><div><h4 class="font-bold text-[11px] sm:text-base text-slate-800">Блок ${b} <span class="hidden sm:inline">(Квартал)</span></h4><span class="text-[8px] sm:text-[10px] text-slate-400 block sm:inline">${getBlockDates(b)}</span></div><div class="text-right"><span class="text-sm sm:text-lg font-bold text-brand-purple">${bs.pct}%</span><div class="text-[8px] sm:text-[10px] text-slate-500">${bs.earned}/${bs.total} очков</div></div></div><div class="pt-1.5 sm:pt-2 border-t border-slate-200/60">${wHtml}</div></div>`;
                 }
                 bCont.innerHTML = bh + '</div>';
             };
@@ -1244,7 +1244,7 @@
                 let h = '';
                 for(let i = 1; i <= TOTAL_WEEKS; i++) {
                     const iR = i % WEEKS_PER_BLOCK === 0, iC = i === appData.currentWeek;
-                    let bClass = "h-6 sm:h-6 flex items-center justify-center rounded cursor-pointer text-[10px] sm:text-[10px] font-semibold transition-all ";
+                    let bClass = "h-5 sm:h-6 flex items-center justify-center rounded cursor-pointer text-[8px] sm:text-[10px] font-semibold transition-all ";
                     if (iC) bClass += "bg-brand-purple text-white shadow-md scale-110 z-10 font-bold ";
                     else if (iR) bClass += "bg-amber-100 text-amber-700 border border-amber-200 hover:bg-amber-200 ";
                     else bClass += "bg-white border border-slate-200 text-slate-500 hover:border-brand-purple hover:text-brand-purple ";
@@ -1283,9 +1283,9 @@
                 let rh = '';
                 for(let i=1; i<=5; i++) {
                     const sel = i === ref.rating;
-                    rh += `<button data-val="${i}" class="reflection-rating-btn group flex flex-col items-center gap-1.5 sm:gap-2 flex-1 outline-none">
-                        <span class="${sel?'text-xs sm:text-sm font-bold text-slate-800':'text-[10px] sm:text-xs font-bold text-slate-400 group-hover:text-slate-700'} transition-colors">${i}</span>
-                        <div class="w-full h-8 sm:h-10 rounded-full border-2 ${sel?'border-brand-purple bg-brand-purple shadow-md scale-110 text-white font-bold':'border-slate-300 bg-white group-hover:border-slate-400 text-slate-500 font-normal'} transition-colors flex items-center justify-center text-lg sm:text-xl">${sel?'✓':'◯'}</div>
+                    rh += `<button data-val="${i}" class="reflection-rating-btn group flex flex-col items-center gap-1 sm:gap-2 flex-1 outline-none">
+                        <span class="${sel?'text-[10px] sm:text-sm font-bold text-slate-800':'text-[8px] sm:text-xs font-bold text-slate-400 group-hover:text-slate-700'} transition-colors">${i}</span>
+                        <div class="w-full h-6 sm:h-10 rounded-full border-2 ${sel?'border-brand-purple bg-brand-purple shadow-md scale-110 text-white font-bold':'border-slate-300 bg-white group-hover:border-slate-400 text-slate-500 font-normal'} transition-colors flex items-center justify-center text-sm sm:text-xl">${sel?'✓':'◯'}</div>
                     </button>`;
                 }
                 rC.innerHTML = rh;
@@ -1297,17 +1297,17 @@
                     const wSt = getWeekFactProgress(w);
                     const wRef = getReflection(w);
                     let stars = '';
-                    for(let s=1; s<=5; s++) stars += `<span class="${s<=wRef.rating?'text-amber-400':'text-slate-200'} text-xs sm:text-sm">★</span>`;
+                    for(let s=1; s<=5; s++) stars += `<span class="${s<=wRef.rating?'text-amber-400':'text-slate-200'} text-[10px] sm:text-sm">★</span>`;
                     
                     const isCur = w === appData.currentWeek;
                     dHtml += `
-                    <div class="flex items-center justify-between text-[10px] sm:text-xs p-2 sm:p-2.5 rounded-xl border ${isCur?'bg-indigo-50/50 border-brand-purple/30':'bg-slate-50/50 border-slate-100'} mb-1.5 sm:mb-0">
-                        <span class="font-bold ${isCur?'text-brand-purple':'text-slate-600'} w-10 sm:w-14">Нед. ${w}</span>
-                        <div class="flex items-center gap-1.5 sm:gap-2 flex-1 mx-2 hidden sm:flex">
+                    <div class="flex items-center justify-between text-[8px] sm:text-xs p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl border ${isCur?'bg-indigo-50/50 border-brand-purple/30':'bg-slate-50/50 border-slate-100'} mb-1 sm:mb-0">
+                        <span class="font-bold ${isCur?'text-brand-purple':'text-slate-600'} w-8 sm:w-14 truncate">Нед. ${w}</span>
+                        <div class="flex items-center gap-1 sm:gap-2 flex-1 mx-1.5 sm:mx-2 hidden sm:flex min-w-0">
                            <div class="flex-1 h-1 sm:h-1.5 bg-slate-200 rounded-full overflow-hidden">
                                <div class="h-full ${isCur?'bg-brand-purple':'bg-emerald-400'}" style="width: ${wSt.pct}%"></div>
                            </div>
-                           <span class="text-[8px] sm:text-[10px] font-bold ${isCur?'text-brand-purple':'text-slate-500'} w-6 sm:w-8 text-right">${wSt.pct}%</span>
+                           <span class="text-[7px] sm:text-[10px] font-bold ${isCur?'text-brand-purple':'text-slate-500'} w-5 sm:w-8 text-right">${wSt.pct}%</span>
                         </div>
                         <div class="flex gap-0.5 w-max shrink-0">${stars}</div>
                     </div>`;
@@ -1316,22 +1316,29 @@
 
                 const tC = document.getElementById('reflectionWeekTaskList');
                 const wT = appData.tasks.filter(t => t.week === appData.currentWeek);
-                if(wT.length === 0) tC.innerHTML = '<p class="text-xs sm:text-sm text-slate-400 italic p-4 text-center">Задач на эту неделю запланировано не было.</p>';
+                if(wT.length === 0) tC.innerHTML = '<p class="text-[10px] sm:text-sm text-slate-400 italic p-3 sm:p-4 text-center">Задач на эту неделю запланировано не было.</p>';
                 else {
                     tC.innerHTML = wT.map(t => {
                         const g = appData.goals.find(x => x.id === t.goalId);
                         let sH = '', bg = 'bg-white border-slate-200', tx = 'text-slate-700';
                         if(t.type === 'daily') {
                             const dD = t.days.filter(d=>d).length;
-                            sH = `<span class="text-[9px] sm:text-xs font-bold text-brand-purple px-1.5 sm:px-2 py-1 rounded bg-brand-purple/5 border border-brand-purple/10 whitespace-nowrap">${dD} / 7 дн.</span>`;
+                            sH = `<span class="text-[8px] sm:text-xs font-bold text-brand-purple px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-brand-purple/5 border border-brand-purple/10 whitespace-nowrap">${dD} / 7 дн.</span>`;
                             if(dD === 7) bg = 'bg-emerald-50 border-emerald-200';
                         } else {
-                            if(t.done) { sH = `<span class="text-[9px] sm:text-xs font-bold text-emerald-600 px-1.5 sm:px-2 py-1 rounded bg-emerald-100 border border-emerald-200 whitespace-nowrap">Выполнено</span>`; bg = 'bg-emerald-50 border-emerald-200'; tx = 'text-emerald-800 line-through opacity-70'; } 
-                            else sH = `<span class="text-[9px] sm:text-xs font-bold text-slate-500 px-1.5 sm:px-2 py-1 rounded bg-slate-100 border border-slate-200 whitespace-nowrap">Не выполнено</span>`;
+                            if(t.done) { sH = `<span class="text-[8px] sm:text-xs font-bold text-emerald-600 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-emerald-100 border border-emerald-200 whitespace-nowrap">Выполнено</span>`; bg = 'bg-emerald-50 border-emerald-200'; tx = 'text-emerald-800 line-through opacity-70'; } 
+                            else sH = `<span class="text-[8px] sm:text-xs font-bold text-slate-500 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-slate-100 border border-slate-200 whitespace-nowrap">Не выполнено</span>`;
                         }
-                        return `<div class="flex items-center justify-between p-3 sm:p-4 rounded-xl sm:rounded-2xl border ${bg} gap-2 sm:gap-4 shadow-sm">
-                            <div class="flex items-center gap-2 sm:gap-3 min-w-0"><span class="text-base sm:text-lg shrink-0">${t.type==='daily'?'☀️':'🎯'}</span><div class="min-w-0"><p class="text-[10px] sm:text-xs text-slate-400 truncate">${g?g.title:'-'}</p><p class="text-xs sm:text-sm font-medium ${tx} truncate">${t.title}</p></div></div>
-                            <div class="shrink-0">${sH}</div></div>`;
+                        return `<div class="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border ${bg} gap-2 sm:gap-4 shadow-sm w-full">
+                            <div class="flex items-center gap-2 sm:gap-3 min-w-0 w-full sm:w-auto">
+                                <span class="text-sm sm:text-lg shrink-0">${t.type==='daily'?'☀️':'🎯'}</span>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-[8px] sm:text-xs text-slate-400 truncate">${g?g.title:'-'}</p>
+                                    <p class="text-[10px] sm:text-sm font-medium ${tx} break-words line-clamp-2">${t.title}</p>
+                                </div>
+                            </div>
+                            <div class="shrink-0 self-start sm:self-auto">${sH}</div>
+                        </div>`;
                     }).join('');
                 }
             };
@@ -1357,9 +1364,9 @@
                 groups.forEach(group => {
                     const groupData = appData.vision.images[group.key];
                     photoHtml += `
-                        <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100">
-                            <input type="text" class="w-full bg-transparent font-bold text-slate-500 text-xs sm:text-sm uppercase tracking-wider mb-4 sm:mb-5 border-b border-slate-100 pb-2 sm:pb-3 outline-none focus:text-brand-purple transition-colors" value="${groupData.label}" oninput="appDataGlobal.vision.images['${group.key}'].label=this.value; saveData()">
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                        <div class="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-slate-100 w-full min-w-0">
+                            <input type="text" class="w-full bg-transparent font-bold text-slate-500 text-[10px] sm:text-sm uppercase tracking-wider mb-3 sm:mb-5 border-b border-slate-100 pb-2 sm:pb-3 outline-none focus:text-brand-purple transition-colors truncate" value="${groupData.label}" oninput="appDataGlobal.vision.images['${group.key}'].label=this.value; saveData()">
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full">
                                 ${groupData.slots.map((imgBase64, idx) => {
                                     const slotId = `vis_${group.key}_${idx}`;
                                     const inputId = `up_${group.key}_${idx}`;
@@ -1368,8 +1375,8 @@
                                     return `
                                         <div id="${slotId}" class="vision-image-card aspect-square ${hasImg}" style="${bgStyle}" onclick="if(!event.target.closest('.delete-img-btn')) document.getElementById('${inputId}').click()">
                                             <input type="file" id="${inputId}" class="hidden" accept="image/*" onchange="window.uploadVisionImage(event, '${group.key}', ${idx}, '${slotId}')">
-                                            <div class="vision-upload-icon text-xl sm:text-2xl">📸</div>
-                                            <button class="absolute top-1.5 right-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full w-5 h-5 items-center justify-center delete-img-btn text-xs transition-colors" onclick="window.deleteVisionImage(event, '${group.key}', ${idx}, '${slotId}')">✕</button>
+                                            <div class="vision-upload-icon text-lg sm:text-2xl">📸</div>
+                                            <button class="absolute top-1 sm:top-1.5 right-1 sm:right-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-full w-4 h-4 sm:w-5 sm:h-5 items-center justify-center delete-img-btn text-[8px] sm:text-xs transition-colors" onclick="window.deleteVisionImage(event, '${group.key}', ${idx}, '${slotId}')">✕</button>
                                         </div>
                                     `;
                                 }).join('')}
@@ -1381,20 +1388,20 @@
 
                 const aColors = ['indigo', 'sky', 'amber', 'rose'];
                 document.getElementById('visionValuesContainer').innerHTML = appData.vision.values.map((v, i) => `
-                    <div class="bg-${i===1?'emerald':'slate'}-50/50 p-3 sm:p-4 rounded-2xl border border-${i===1?'emerald':'slate'}-100">
-                        <input type="text" class="vision-input w-full bg-transparent font-bold text-${i===1?'emerald':'slate'}-800 text-xs sm:text-sm mb-1 focus:bg-white focus:ring-2 focus:ring-${i===1?'emerald':'slate'}-400/50 rounded-lg p-2 -mx-2 outline-none transition-all" placeholder="Ценность ${i+1}" value="${v.title}" oninput="appDataGlobal.vision.values[${i}].title=this.value; saveData()">
-                        <textarea class="auto-resize vision-input w-full bg-transparent text-[10px] sm:text-sm text-${i===1?'emerald-700':'slate-600'} resize-none min-h-[3rem] focus:bg-white focus:ring-2 focus:ring-${i===1?'emerald':'slate'}-400/50 rounded-lg p-2 -mx-2 outline-none transition-all mt-1" placeholder="Описание..." oninput="appDataGlobal.vision.values[${i}].desc=this.value; saveData()">${v.desc}</textarea>
+                    <div class="bg-${i===1?'emerald':'slate'}-50/50 p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border border-${i===1?'emerald':'slate'}-100 w-full">
+                        <input type="text" class="vision-input w-full bg-transparent font-bold text-${i===1?'emerald':'slate'}-800 text-[10px] sm:text-sm mb-1 focus:bg-white focus:ring-2 focus:ring-${i===1?'emerald':'slate'}-400/50 rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 outline-none transition-all truncate" placeholder="Ценность ${i+1}" value="${v.title}" oninput="appDataGlobal.vision.values[${i}].title=this.value; saveData()">
+                        <textarea class="auto-resize vision-input w-full bg-transparent text-[9px] sm:text-sm text-${i===1?'emerald-700':'slate-600'} resize-none min-h-[2.5rem] sm:min-h-[3rem] focus:bg-white focus:ring-2 focus:ring-${i===1?'emerald':'slate'}-400/50 rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 outline-none transition-all mt-0.5 sm:mt-1 break-words" placeholder="Описание..." oninput="appDataGlobal.vision.values[${i}].desc=this.value; saveData()">${v.desc}</textarea>
                     </div>`).join('');
                     
                 document.getElementById('visionAnchorsContainer').innerHTML = appData.vision.anchors.map((a, i) => `
-                    <div class="bg-${aColors[i]}-50/50 p-4 sm:p-5 rounded-2xl border border-${aColors[i]}-100/50 flex flex-col h-full min-h-[8rem] sm:min-h-[10rem]">
-                        <input type="text" class="vision-input w-full bg-transparent font-bold text-${aColors[i]}-900 text-[10px] sm:text-xs uppercase tracking-wider mb-2 focus:bg-white focus:ring-2 focus:ring-${aColors[i]}-400/50 rounded-lg p-2 -mx-2 outline-none transition-all" placeholder="ЯКОРЬ" value="${a.title}" oninput="appDataGlobal.vision.anchors[${i}].title=this.value; saveData()">
-                        <textarea class="auto-resize vision-input w-full flex-1 bg-transparent text-xs sm:text-sm text-${aColors[i]}-800 resize-none min-h-[3rem] sm:min-h-[4rem] focus:bg-white focus:ring-2 focus:ring-${aColors[i]}-400/50 rounded-lg p-2 -mx-2 outline-none transition-all mt-1" placeholder="Описание..." oninput="appDataGlobal.vision.anchors[${i}].desc=this.value; saveData()">${a.desc}</textarea>
+                    <div class="bg-${aColors[i]}-50/50 p-3 sm:p-5 rounded-xl sm:rounded-2xl border border-${aColors[i]}-100/50 flex flex-col h-full min-h-[6rem] sm:min-h-[10rem] w-full">
+                        <input type="text" class="vision-input w-full bg-transparent font-bold text-${aColors[i]}-900 text-[8px] sm:text-xs uppercase tracking-wider mb-1 sm:mb-2 focus:bg-white focus:ring-2 focus:ring-${aColors[i]}-400/50 rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 outline-none transition-all truncate" placeholder="ЯКОРЬ" value="${a.title}" oninput="appDataGlobal.vision.anchors[${i}].title=this.value; saveData()">
+                        <textarea class="auto-resize vision-input w-full flex-1 bg-transparent text-[10px] sm:text-sm text-${aColors[i]}-800 resize-none min-h-[2.5rem] sm:min-h-[4rem] focus:bg-white focus:ring-2 focus:ring-${aColors[i]}-400/50 rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 outline-none transition-all mt-0.5 sm:mt-1 break-words" placeholder="Описание..." oninput="appDataGlobal.vision.anchors[${i}].desc=this.value; saveData()">${a.desc}</textarea>
                     </div>`).join('');
 
                 const bs = getBlockFactProgress(getBlockFromWeek(appData.currentWeek));
                 document.getElementById('visionBlockProgress').style.width = bs.pct + '%';
-                document.getElementById('visionBlockProgressText').innerText = `Прогресс квартала: ${bs.pct}%`;
+                document.getElementById('visionBlockProgressText').innerText = `Прогресс: ${bs.pct}%`;
                 
                 setTimeout(triggerResizeAll, 50);
             };
@@ -1424,7 +1431,6 @@
                 
                 document.getElementById('mainScrollArea').scrollTo(0,0);
                 
-                // Закрываем боковое меню на мобильных после выбора вкладки
                 if (window.innerWidth < 1024 && !sidebar.classList.contains('-translate-x-full')) {
                     toggleSidebar();
                 }
@@ -1469,7 +1475,7 @@
                     
                     updateUserBadge();
 
-                    loadFromCloud(); // Загружаем данные из облака
+                    loadFromCloud(); 
                 }
             });
 
