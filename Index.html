@@ -122,9 +122,15 @@
                 </div>
             </div>
 
-            <button id="globalSaveBtn" class="bg-brand-purple hover:bg-indigo-700 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-md transition-all flex items-center shrink-0 w-full xl:w-auto justify-center">
-                <span class="mr-2 text-lg">💾</span> <span id="globalSaveBtnText">Сохранить прогресс</span>
-            </button>
+            <div class="flex items-center gap-4 w-full xl:w-auto justify-end shrink-0">
+                <div id="userProfileBadge" class="hidden flex-col items-end hidden md:flex">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Вы вошли как</span>
+                    <span id="userEmailDisplay" class="text-xs font-bold text-slate-700">--</span>
+                </div>
+                <button id="globalSaveBtn" class="bg-brand-purple hover:bg-indigo-700 text-white px-5 py-3 rounded-xl text-sm font-bold shadow-md transition-all flex items-center shrink-0 w-full xl:w-auto justify-center">
+                    <span class="mr-2 text-lg">💾</span> <span id="globalSaveBtnText">Сохранить прогресс</span>
+                </button>
+            </div>
         </header>
 
         <div class="flex-1 overflow-y-auto p-8 relative custom-scrollbar" id="mainScrollArea">
@@ -539,6 +545,10 @@
                 authOverlay.style.display = 'none';
                 
                 console.log("Успешный вход! ID пользователя:", currentUser.id);
+                
+                document.getElementById('userProfileBadge').classList.remove('hidden');
+                document.getElementById('userEmailDisplay').innerText = currentUser.email;
+
                 await loadFromCloud(); // Загружаем данные из облака
             });
 
@@ -784,7 +794,7 @@
                 const blkBtn = e.target.closest('.plan-block-btn');
                 if (blkBtn) { activePlanBlock = parseInt(blkBtn.dataset.block); renderPlanTab(); setTimeout(triggerResizeAll, 50); }
                 const dGoalBtn = e.target.closest('.delete-goal-btn');
-                if(dGoalBtn && confirm("Удалить цель и все её практики?")) {
+                if(dGoalBtn && confirm("Удалить цель и все её practices?")) {
                     appData.goals = appData.goals.filter(g => g.id !== dGoalBtn.dataset.id);
                     appData.tasks = appData.tasks.filter(t => t.goalId !== dGoalBtn.dataset.id);
                     forceSave(); renderPlanTab(); renderDashboard(); renderReflectionTab(); setTimeout(triggerResizeAll, 50);
@@ -1290,6 +1300,10 @@
                     currentUser = session.user;
                     authOverlay.style.display = 'none';
                     console.log("Сессия восстановлена. ID:", currentUser.id);
+                    
+                    document.getElementById('userProfileBadge').classList.remove('hidden');
+                    document.getElementById('userEmailDisplay').innerText = currentUser.email;
+
                     loadFromCloud(); // Загружаем данные из облака
                 }
             });
